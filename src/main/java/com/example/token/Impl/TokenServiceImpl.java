@@ -11,7 +11,6 @@ public class TokenServiceImpl implements TokenService {
     public String getToken() {
         String id="123";
         String name="yt";
-        System.out.println(JWT.create().withAudience(id).sign(Algorithm.HMAC256(name)));
         return JWT.create().withAudience(id).sign(Algorithm.HMAC256(name));
     }
 }

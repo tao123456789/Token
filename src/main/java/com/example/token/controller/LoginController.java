@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/user")
+@RequestMapping("/")
 @Api(tags = "用户登录")
 public class LoginController{
     @Reference
@@ -30,6 +30,12 @@ public class LoginController{
             token = getToken.getToken();
         }
         return token;
+    }
+
+    @GetMapping("/getAllUser")
+    public String getAllUser(){
+        System.out.println("触发了接口");
+        return "ok";
     }
 
     @UserLoginToken
