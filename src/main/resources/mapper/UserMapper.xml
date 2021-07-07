@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+
+<mapper namespace="com.example.token.usermapper.UserMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.example.token.bean.UserDo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="userName" />
+        <result column="userPasswd" jdbcType="VARCHAR" property="userPasswd" />
+        <result column="realname" jdbcType="VARCHAR" property="realName" />
+    </resultMap>
+
+<!--    查询某一个用户的信息-->
+    <select id="GetUserByName" resultType="com.example.token.bean.UserDo">
+        select * from user where id = #{id}
+    </select>
+
+<!--    查询所有的用户信息-->
+    <select id="GetAllUser" resultType="com.example.token.bean.UserDo">
+        select * from user
+    </select>
+
+    <!--删除语句-->
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where username =#{username,jdbcType=INTEGER}
+    </delete>
+
+    <!--修改语句-->
+    <update id="updateUser" parameterType="com.example.token.bean.UserDo">
+        update user set realname=#{realname,jdbcType=VARCHAR} where username=#{username,jdbcType=INTEGER}
+    </update>
+
+</mapper>
