@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenServiceImpl implements TokenService {
     @Override
-    public String getToken() {
-        String id="123";
-        String name="yt";
-        return JWT.create().withAudience(id).sign(Algorithm.HMAC256(name));
+    public String getToken(int id,String name) {
+        return JWT.create().withAudience(String.valueOf(id)).sign(Algorithm.HMAC256(name));
     }
 }

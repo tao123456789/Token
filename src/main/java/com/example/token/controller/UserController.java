@@ -21,15 +21,18 @@ public class UserController {
         List<UserDo> userDoList = null;
         if (!userService.GetAllUser().isEmpty()) {
             userDoList = userService.GetAllUser();
+//            System.out.println("获取到的userlist:"+userDoList);
         }else {
             System.out.println("查无此人！！！");
         }
         return userDoList;
     }
 
-    @RequestMapping("/getUser/{username}")
-    public UserDo GetUser(@PathVariable String username){
-        return userService.GetUserByName(username);
+    @RequestMapping("/getUser/{id}")
+    public UserDo GetUser(@PathVariable int id){
+//        System.out.println("将要获取的username:"+id);
+//        System.out.println("获取到的username:"+userService.GetUserByName(id));
+        return userService.GetUserByName(id);
     }
 
 }

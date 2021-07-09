@@ -2,21 +2,19 @@ package com.example.token.bean;
 
 
 public class UserDo {
-    private String id;
+    private int id;
 
     private String userName;
 
     private String userPasswd;
 
-    private String reaName;
+    private String realName;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+    public void setId(int id) { this.id = id; }
 
     public String getUserName() {
         return userName;
@@ -34,12 +32,12 @@ public class UserDo {
         this.userPasswd = userPasswd == null ? null : userPasswd.trim();
     }
 
-    public String getReaName() {
-        return reaName;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setReaName(String reaName) {
-        this.reaName = reaName;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     @Override
@@ -48,7 +46,7 @@ public class UserDo {
                 "id='" + id + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userPasswd='" + userPasswd + '\'' +
-                ", reaName='" + reaName + '\'' +
+                ", reaName='" + realName + '\'' +
                 '}';
     }
 }

@@ -17,6 +17,5 @@ class TokenServiceImplTest {
     @Test
     void getToken() {
         TokenServiceImpl Token=new TokenServiceImpl();
-        System.out.println(Token.getToken());
     }
 }
