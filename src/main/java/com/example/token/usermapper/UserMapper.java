@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     List<UserDo> GetAllUser();
-    UserDo GetUserByName(int id);
+    UserDo GetUserByName(String username);
     int insertUser(UserDo user);
     int deleteUser(String name);
     int updateUser(UserDo user);

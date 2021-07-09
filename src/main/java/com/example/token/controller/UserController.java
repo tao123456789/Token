@@ -28,11 +28,11 @@ public class UserController {
         return userDoList;
     }
 
-    @RequestMapping("/getUser/{id}")
-    public UserDo GetUser(@PathVariable int id){
+    @RequestMapping("/getUser/{username}")
+    public UserDo GetUser(@PathVariable String username){
 //        System.out.println("将要获取的username:"+id);
 //        System.out.println("获取到的username:"+userService.GetUserByName(id));
-        return userService.GetUserByName(id);
+        return userService.GetUserByName(username);
     }
 
 }

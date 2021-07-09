@@ -16,7 +16,7 @@ class UserServiceImplTest {
     void getAllUser() {
         List<UserDo> userDoList=userService.GetAllUser();
         System.out.println(userDoList);
-        System.out.println(userService.GetUserByName(123));
+        System.out.println(userService.GetUserByName("123"));
     }
 
     @Test

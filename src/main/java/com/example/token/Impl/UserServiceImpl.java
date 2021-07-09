@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDo GetUserByName(int id){
-        return userMapper.GetUserByName(id);
+    public UserDo GetUserByName(String username){
+        return userMapper.GetUserByName(username);
     }
 
     @Override

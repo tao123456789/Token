@@ -29,12 +29,13 @@ public class LoginController{
 
         Boolean isLogin = false;
         String token="";
+        UserDo userBean=userService.GetUserByName(userDo.getUserName());
 //
 //        System.out.println(userService.GetUserByName(userDo.getId()).getUserPasswd());
 //        System.out.println(userDo);
 
-        if(userService.GetUserByName(userDo.getId()).getUserPasswd().equals(userDo.getUserPasswd())){
-            token = getToken.getToken(userDo.getId(),userDo.getUserName());
+        if(userBean.getUserPasswd().equals(userDo.getUserPasswd())){
+            token = getToken.getToken(userBean.getId(),userDo.getUserName());
             isLogin=true;
         }else{
             System.out.println("密码错误！！！");
