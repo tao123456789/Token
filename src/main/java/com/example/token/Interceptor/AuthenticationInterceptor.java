@@ -1,14 +1,9 @@
 package com.example.token.Interceptor;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.example.token.Impl.TokenServiceImpl;
 import com.example.token.Interface.PassToken;
 import com.example.token.Interface.UserLoginToken;
-import com.example.token.service.UserService;
-import jdk.nashorn.internal.ir.annotations.Reference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 public class AuthenticationInterceptor implements HandlerInterceptor {
-    @Reference
-    UserService userService;
+//    @Reference
+    @Autowired
+    private TokenServiceImpl tokenService;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
@@ -45,24 +41,30 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 if (token == null) {
                     throw new RuntimeException("无token，请重新登录");
                 }
-                // 获取 token 中的 user id
-                String userId;
-                try {
-                    userId = JWT.decode(token).getAudience().get(0);
-                    System.out.println("token："+token+"对应的userid是:"+userId);
-                } catch (JWTDecodeException j) {
-                    throw new RuntimeException("401");
-                }
+//                // 获取 token 中的 user id
+//                String userId;
+//                try {
+//                    userId = JWT.decode(token).getAudience().get(0);
+////                    System.out.println("token："+token+"对应的userid是:"+userId);
+//                } catch (JWTDecodeException j) {
+//                    throw new RuntimeException("401");
+//                }
 //                UserDo user = userService.findUserById(userId);
 //                if (user == null) {
 //                    throw new RuntimeException("用户不存在，请重新登录");
 //                }
                 // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("yt")).build();
-                try {
-                    jwtVerifier.verify(token);
-                } catch (JWTVerificationException e) {
-                    throw new RuntimeException("401");
+//                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("yt")).build();
+//                try {
+////                    jwtVerifier.verify(token);
+//
+//                } catch (JWTVerificationException e) {
+//                    throw new RuntimeException("401");
+//                }
+                //验证token
+                System.out.println(token);
+                if(tokenService.checkToken(token)==0){
+                    throw new RuntimeException("token值失效，请重新登录");
                 }
                 return true;
             }

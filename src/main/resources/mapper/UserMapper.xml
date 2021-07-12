@@ -35,4 +35,14 @@
         update user set realname=#{realname,jdbcType=VARCHAR} where username=#{username,jdbcType=INTEGER}
     </update>
 
+
+<!--    token服务-->
+    <select id="checkToken" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select ifuse from token where token=#{token}
+    </select>
+
+    <insert id="insertToken" parameterType="java.lang.String">
+        insert into token (token) values (#{token})
+    </insert>
+
 </mapper>

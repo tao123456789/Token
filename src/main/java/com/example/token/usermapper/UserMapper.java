@@ -12,4 +12,9 @@ public interface UserMapper {
     int insertUser(UserDo user);
     int deleteUser(String name);
     int updateUser(UserDo user);
+
+//    token服务
+    int checkToken(String token);
+
+    void insertToken(String token);
 }

@@ -2,14 +2,14 @@ package com.example.token.controller;
 
 import com.example.token.Impl.TokenServiceImpl;
 import com.example.token.Impl.UserServiceImpl;
+import com.example.token.Interface.PassToken;
 import com.example.token.Interface.UserLoginToken;
 import com.example.token.bean.UserDo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@PassToken
 @RestController
 @CrossOrigin
 @RequestMapping("/")
@@ -20,7 +20,7 @@ public class LoginController{
     private UserServiceImpl userService;
 
     @Autowired
-    TokenServiceImpl getToken;
+    TokenServiceImpl Token;
 
     //登录
     @PostMapping ("/getToken")
@@ -30,24 +30,29 @@ public class LoginController{
         Boolean isLogin = false;
         String token="";
         UserDo userBean=userService.GetUserByName(userDo.getUserName());
-//
-//        System.out.println(userService.GetUserByName(userDo.getId()).getUserPasswd());
-//        System.out.println(userDo);
 
+        //验证登录，获取token
         if(userBean.getUserPasswd().equals(userDo.getUserPasswd())){
-            token = getToken.getToken(userBean.getId(),userDo.getUserName());
+            //验证通过，获取token
+            token = Token.getToken(userBean.getId(),userDo.getUserName());
+            try{
+                int tokenResult = Token.checkToken(token);
+                if(tokenResult==1){
+                }else {
+                    Token.insertToken(token);
+                }
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
             isLogin=true;
+
+            //返回用户权限内容
+
         }else{
             System.out.println("密码错误！！！");
         }
         return token;
-    }
-
-    @GetMapping("/getAllUser")
-    public List<UserDo> getAllUser(){
-//        System.out.println("获取所有的user信息："+userService.GetAllUser());
-//        System.out.println("获取某一ID的密码:"+userService.GetUserByName(1));
-        return userService.GetAllUser();
     }
 
     @UserLoginToken

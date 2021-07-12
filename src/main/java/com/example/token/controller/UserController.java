@@ -1,6 +1,7 @@
 package com.example.token.controller;
 
 import com.example.token.Impl.UserServiceImpl;
+import com.example.token.Interface.UserLoginToken;
 import com.example.token.bean.UserDo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@UserLoginToken
 @RestController
 @RequestMapping("/user")
 public class UserController {
