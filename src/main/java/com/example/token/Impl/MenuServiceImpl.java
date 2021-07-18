@@ -14,7 +14,7 @@ public class MenuServiceImpl implements MenuService {
     MenuMapper menuMapper;
 
     @Override
-    public int GetUserGroup(int userid){
+    public Integer GetUserGroup(int userid){
         return menuMapper.GetUserGroup(userid);
     };
 
