@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
-    private UserMapper userMapper;//这里会报错，但并不影响
+    private UserMapper userMapper;
 
     @Override
     public List<UserDo> GetAllUser(){

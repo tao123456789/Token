@@ -8,6 +8,14 @@
 
 <mapper namespace="com.example.token.mapper.MenuMapper">
 
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.example.token.bean.menu.action">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="action_id" jdbcType="INTEGER" property="action_id" />
+        <result column="action_name" jdbcType="VARCHAR" property="action_name" />
+        <result column="action_url" jdbcType="VARCHAR" property="action_url" />
+    </resultMap>
+
     <!--    查询用户角色-->
     <select id="GetUserGroup" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         select group_id from user_group where user_id = #{user_id,jdbcType=INTEGER}
@@ -16,6 +24,11 @@
     <!--    查询角色对应的权限-->
     <select id="GetGroupAction" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         select action_id from group_action where group_id = #{group_id,jdbcType=INTEGER}
+    </select>
+
+    <!--    查询权限的前端地址-->
+    <select id="GetActionUrl" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from action1 where action_id = #{actionid,jdbcType=INTEGER}
     </select>
 
 </mapper>

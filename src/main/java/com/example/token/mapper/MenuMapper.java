@@ -1,5 +1,6 @@
 package com.example.token.mapper;
 
+import com.example.token.bean.menu.action;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.List;
 public interface MenuMapper {
     //获取用户权限组
     Integer GetUserGroup(int userid);
-    //获取权限列表
+    //获取权限组列表
     List<Integer> GetGroupAction(int groupid);
+    //获取菜单列表权限
+    action GetActionUrl(Integer actionid);
 }

@@ -37,5 +37,4 @@ public class UserController {
 //        System.out.println("获取到的username:"+userService.GetUserByName(id));
         return userService.GetUserByName(username);
     }
-
 }
