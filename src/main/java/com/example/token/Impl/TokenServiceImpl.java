@@ -3,7 +3,7 @@ package com.example.token.Impl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.token.service.TokenService;
-import com.example.token.usermapper.UserMapper;
+import com.example.token.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

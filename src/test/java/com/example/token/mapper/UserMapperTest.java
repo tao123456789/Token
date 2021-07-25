@@ -1,4 +1,4 @@
-package com.example.token.usermapper;
+package com.example.token.mapper;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

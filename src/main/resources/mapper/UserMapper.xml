@@ -6,7 +6,7 @@
 <!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
 <!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
 
-<mapper namespace="com.example.token.usermapper.UserMapper">
+<mapper namespace="com.example.token.mapper.UserMapper">
     <!--定义一个名为BaseResultMap的返回类型-->
     <resultMap id="BaseResultMap" type="com.example.token.bean.UserDo">
         <id column="id" jdbcType="INTEGER" property="id" />

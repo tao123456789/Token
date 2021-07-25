@@ -1,4 +1,4 @@
-package com.example.token.usermapper;
+package com.example.token.mapper;
 
 import com.example.token.bean.UserDo;
 import org.mapstruct.Mapper;
@@ -14,7 +14,7 @@ public interface UserMapper {
     int updateUser(UserDo user);
 
 //    token服务
-    int checkToken(String token);
+    Integer checkToken(String token);
 
     void insertToken(String token);
 }

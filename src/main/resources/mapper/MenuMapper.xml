@@ -6,16 +6,16 @@
 <!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
 <!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
 
-<mapper namespace="com.example.token.usermapper.MenuMapper">
+<mapper namespace="com.example.token.mapper.MenuMapper">
 
     <!--    查询用户角色-->
-    <select id="GetUserGroup" resultType="java.lang.Integer">
-        select group_id from user_group where user_id = #{user_id}
+    <select id="GetUserGroup" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select group_id from user_group where user_id = #{user_id,jdbcType=INTEGER}
     </select>
 
     <!--    查询角色对应的权限-->
-    <select id="GetGroupAction" resultType="java.lang.Integer">
-        select action_id from group_action where group_id = #{group_id}
+    <select id="GetGroupAction" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select action_id from group_action where group_id = #{group_id,jdbcType=INTEGER}
     </select>
 
 </mapper>

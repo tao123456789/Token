@@ -1,7 +1,7 @@
 package com.example.token.Impl;
 
 import com.example.token.service.MenuService;
-import com.example.token.usermapper.MenuMapper;
+import com.example.token.mapper.MenuMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,4 +22,5 @@ public class MenuServiceImpl implements MenuService {
     public List<Integer> GetGroupAction(int groupid){
         return menuMapper.GetGroupAction(groupid);
     }
+
 }

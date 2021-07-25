@@ -2,7 +2,7 @@ package com.example.token.Impl;
 
 import com.example.token.bean.UserDo;
 import com.example.token.service.UserService;
-import com.example.token.usermapper.UserMapper;
+import com.example.token.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
