@@ -1,6 +1,6 @@
 package com.example.token.mapper;
 
-import com.example.token.bean.UserDo;
+import com.example.token.bean.user.UserDo;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -8,7 +8,8 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     List<UserDo> GetAllUser();
-    UserDo GetUserByName(String username);
+    UserDo GetUserByUserName(String username);
+    UserDo GetUserByUserId(String userid);
     int insertUser(UserDo user);
     int deleteUser(String name);
     int updateUser(UserDo user);

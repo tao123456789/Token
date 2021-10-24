@@ -1,6 +1,6 @@
 package com.example.token.service;
 
-import com.example.token.bean.MaterialDo;
+import com.example.token.bean.material.MaterialDo;
 
 import java.util.List;
 

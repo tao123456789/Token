@@ -8,7 +8,7 @@
 
 <mapper namespace="com.example.token.mapper.MaterialMapper">
     <!--定义一个名为BaseResultMap的返回类型-->
-    <resultMap id="BaseResultMap" type="com.example.token.bean.MaterialDo">
+    <resultMap id="BaseResultMap" type="com.example.token.bean.material.MaterialDo">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="material_id" jdbcType="VARCHAR" property="material_id" />
         <result column="material_name" jdbcType="VARCHAR" property="material_name" />

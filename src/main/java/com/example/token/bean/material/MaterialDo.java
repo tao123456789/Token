@@ -1,4 +1,4 @@
-package com.example.token.bean;
+package com.example.token.bean.material;
 
 public class MaterialDo {
 
