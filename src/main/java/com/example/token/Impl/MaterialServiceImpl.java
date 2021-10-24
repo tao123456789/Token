@@ -1,6 +1,6 @@
 package com.example.token.Impl;
 
-import com.example.token.bean.MaterialDo;
+import com.example.token.BO.material.MaterialDo;
 import com.example.token.mapper.MaterialMapper;
 import com.example.token.service.MaterialService;
 import org.springframework.stereotype.Service;

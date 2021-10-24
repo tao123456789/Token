@@ -2,7 +2,7 @@ package com.example.token.controller;
 
 import com.example.token.Impl.UserServiceImpl;
 import com.example.token.Interface.UserLoginToken;
-import com.example.token.bean.UserDo;
+import com.example.token.BO.user.UserDo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +31,25 @@ public class UserController {
         return userDoList;
     }
 
-    @GetMapping("/getUser/{username}")
-    public UserDo GetUser(@PathVariable String username){
+    @GetMapping("/getUserByUserId/{userid}")
+    public UserDo GetUserByUserId(@PathVariable String userid){
 //        System.out.println("将要获取的username:"+id);
 //        System.out.println("获取到的username:"+userService.GetUserByName(id));
-        return userService.GetUserByName(username);
+        return userService.GetUserByUserId(userid);
     }
+
+    @GetMapping("/getUserByUserName/{username}")
+    public UserDo GetUserByUesrName(@PathVariable String username){
+//        System.out.println("将要获取的username:"+id);
+//        System.out.println("获取到的username:"+userService.GetUserByName(id));
+        return userService.GetUserByUserName(username);
+    }
+
+    @PostMapping("/updateUserInfo")
+    public Boolean updateUserInfo(@RequestBody UserDo userDo){
+        int i=userService.updateUser(userDo);
+        System.out.println("更新？："+i);
+        return (i==1);
+    }
+
 }

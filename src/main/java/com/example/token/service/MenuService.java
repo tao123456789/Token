@@ -1,6 +1,6 @@
 package com.example.token.service;
 
-import com.example.token.bean.menu.action;
+import com.example.token.BO.menu.action;
 
 import java.util.List;
 

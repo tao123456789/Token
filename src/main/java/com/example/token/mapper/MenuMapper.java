@@ -1,6 +1,6 @@
 package com.example.token.mapper;
 
-import com.example.token.bean.menu.action;
+import com.example.token.BO.menu.action;
 import org.mapstruct.Mapper;
 
 import java.util.List;

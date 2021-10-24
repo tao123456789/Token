@@ -8,16 +8,25 @@
 
 <mapper namespace="com.example.token.mapper.UserMapper">
     <!--定义一个名为BaseResultMap的返回类型-->
-    <resultMap id="BaseResultMap" type="com.example.token.bean.UserDo">
+    <resultMap id="BaseResultMap" type="com.example.token.BO.user.UserDo">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="username" jdbcType="VARCHAR" property="userName" />
         <result column="password" jdbcType="VARCHAR" property="userPasswd" />
         <result column="realname" jdbcType="VARCHAR" property="realName" />
+        <result column="ip" jdbcType="VARCHAR" property="ip" />
+        <result column="area" jdbcType="VARCHAR" property="area" />
+        <result column="brower" jdbcType="VARCHAR" property="brower" />
+        <result column="os" jdbcType="VARCHAR" property="os" />
     </resultMap>
 
-<!--    查询某一个用户的信息-->
-    <select id="GetUserByName" resultMap="BaseResultMap">
+<!--    根据name查询某一个用户的信息-->
+    <select id="GetUserByUserName" resultMap="BaseResultMap">
         select * from user where username = #{username}
+    </select>
+
+    <!--    根据id查询某一个用户的信息-->
+    <select id="GetUserByUserId" resultMap="BaseResultMap">
+        select * from user where id = #{userid}
     </select>
 
 <!--    查询所有的用户信息-->
@@ -31,8 +40,24 @@
     </delete>
 
     <!--修改语句-->
-    <update id="updateUser" parameterType="com.example.token.bean.UserDo">
-        update user set realname=#{realname,jdbcType=VARCHAR} where username=#{username,jdbcType=INTEGER}
+    <update id="updateUser" parameterType="com.example.token.BO.user.UserDo">
+        update user set
+        <if test='area!=null' >
+            area=#{area,jdbcType=VARCHAR},
+        </if>
+        <if test="ip!=null">
+            ip=#{ip,jdbcType=VARCHAR},
+        </if>
+        <if test="brower!=null">
+            brower=#{brower,jdbcType=VARCHAR},
+        </if>
+        <if test="os!=null">
+            os=#{os,jdbcType=VARCHAR},
+        </if>
+        <if test="logintime!=null">
+            logintime=#{logintime,jdbcType=VARCHAR}
+        </if>
+        where username=#{userName,jdbcType=VARCHAR}
     </update>
 
 

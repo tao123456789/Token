@@ -1,6 +1,6 @@
 package com.example.token.mapper;
 
-import com.example.token.bean.MaterialDo;
+import com.example.token.BO.material.MaterialDo;
 
 import java.util.List;
 

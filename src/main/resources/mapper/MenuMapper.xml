@@ -9,7 +9,7 @@
 <mapper namespace="com.example.token.mapper.MenuMapper">
 
     <!--定义一个名为BaseResultMap的返回类型-->
-    <resultMap id="BaseResultMap" type="com.example.token.bean.menu.action">
+    <resultMap id="BaseResultMap" type="com.example.token.BO.menu.action">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="action_id" jdbcType="INTEGER" property="action_id" />
         <result column="action_name" jdbcType="VARCHAR" property="action_name" />

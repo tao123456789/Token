@@ -38,7 +38,9 @@ public class ImportServiceImpl implements ImportService {
             for(int j=headRow.getFirstCellNum();j<headRow.getLastCellNum();j++){
                 temp.add(headRow.getCell(j).toString());
             }
-            log.info(i + "行数据：" + temp);
+            if(temp.get(1).toString().equals("花小月")) {
+                log.info(i + "行数据：" + temp);
+            }
         }
 
         xssfWorkbook.close();

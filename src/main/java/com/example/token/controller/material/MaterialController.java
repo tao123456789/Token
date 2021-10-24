@@ -3,7 +3,7 @@ package com.example.token.controller.material;
 import com.example.token.Impl.ImportServiceImpl;
 import com.example.token.Impl.MaterialServiceImpl;
 import com.example.token.Interface.UserLoginToken;
-import com.example.token.bean.MaterialDo;
+import com.example.token.BO.material.MaterialDo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

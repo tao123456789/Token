@@ -1,6 +1,6 @@
 package com.example.token.Impl;
 
-import com.example.token.bean.menu.action;
+import com.example.token.BO.menu.action;
 import com.example.token.mapper.MenuMapper;
 import com.example.token.service.MenuService;
 import org.springframework.stereotype.Service;

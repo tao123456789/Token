@@ -4,7 +4,7 @@ import com.example.token.Impl.TokenServiceImpl;
 import com.example.token.Impl.UserServiceImpl;
 import com.example.token.Interface.PassToken;
 import com.example.token.Interface.UserLoginToken;
-import com.example.token.bean.UserDo;
+import com.example.token.BO.user.UserDo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ public class LoginController{
 
         Boolean isLogin = false;
         String token="";
-        UserDo userBean=userService.GetUserByName(userDo.getUserName());
+        UserDo userBean=userService.GetUserByUserName(userDo.getUserName());
 
         //验证登录，获取token
         if(userBean.getUserPasswd().equals(userDo.getUserPasswd())){

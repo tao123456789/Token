@@ -1,9 +1,9 @@
 package com.example.token.controller.menu;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.token.BO.menu.action;
 import com.example.token.Impl.MenuServiceImpl;
 import com.example.token.Interface.UserLoginToken;
-import com.example.token.bean.menu.action;
-import com.example.token.bean.menu.menu;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,12 @@ public class MenuController {
     @GetMapping("/getMenu/{userid}")
     @ResponseBody
     @ApiOperation("获取用户权限")
-    public menu GetUserMenu(@PathVariable int userid) {
+    public String GetUserMenu(@PathVariable int userid) {
 
         Integer groupid = menuService.GetUserGroup(userid);
         List<Integer> actionid;//获取用户的菜单权限id
-        ArrayList<action> actionArr = new ArrayList<>();//获取各id的名称和url
-        menu menu=new menu();
+        //用户权限集合
+        ArrayList<action> actionArr = new ArrayList<>();
 
         if (groupid == 0) {
             throw new RuntimeException("用户未加入权限组！");
@@ -37,18 +37,41 @@ public class MenuController {
         }
 
         System.out.println("用户id:" + userid + ",管理组id：" + groupid + ",权限id:" + actionid);
-        for (int i=0;i<actionid.size();i++){
-            action action1=menuService.GetActionUrl(actionid.get(i));
-//            System.out.println(menuService.GetActionUrl(actionid.get(i)));
-//            System.out.println(action1);
+        for (int i = 0; i < actionid.size(); i++) {
+            action action1 = menuService.GetActionUrl(actionid.get(i));
             actionArr.add(action1);
         }
-//        System.out.println(actionArr);
 
-        menu.setUserID(userid);
-        menu.setGroupID(groupid);
-        menu.setActionArr(actionArr);
+        //组装数据
+        JSONObject jsonObject = new JSONObject();
+        for (action item : actionArr) {
+            if (item.getAction_level().equals("1")) {
+                jsonObject.put("icon", item.getAction_icon());
+                jsonObject.put("name", item.getAction_name());
+                jsonObject.put("url", item.getAction_url());
+                //Children目录
+                ArrayList<JSONObject> jsonObjects = new ArrayList<>();
 
-        return menu;
+                for (action item2 : actionArr) {
+                    if (item2.getAction_parent_id().equals("")) {
+                        System.out.println(item2.getAction_name() + "的父节点为空");
+                    } else {
+                        if (item2.getAction_parent_id().equals(item.getAction_id())) {
+                            System.out.println(item2.getAction_name() + "的父节点不为空");
+                            JSONObject jsonObject1 = new JSONObject();
+                            jsonObject1.put("icon", item2.getAction_icon());
+                            jsonObject1.put("name", item2.getAction_name());
+                            jsonObject1.put("url", item2.getAction_url());
+                            jsonObjects.add(jsonObject1);
+                            System.out.println("添加节点"+jsonObject1.toString());
+                            System.out.println("获取的菜单权限为：" + jsonObjects.toString());
+                        }
+                    }
+                }
+                jsonObject.put("children", jsonObjects);
+            }
+        }
+        System.out.println("全部的菜单权限为：" + jsonObject.toString());
+        return jsonObject.toString();
     }
 }
