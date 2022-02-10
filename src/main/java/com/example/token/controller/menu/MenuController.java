@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/menu")
@@ -43,35 +44,34 @@ public class MenuController {
         }
 
         //组装数据
-        JSONObject jsonObject = new JSONObject();
+        ArrayList<JSONObject> jsonObjectsVO = new ArrayList<>();
         for (action item : actionArr) {
+            JSONObject jsonObject = new JSONObject();
             if (item.getAction_level().equals("1")) {
                 jsonObject.put("icon", item.getAction_icon());
                 jsonObject.put("name", item.getAction_name());
                 jsonObject.put("url", item.getAction_url());
+
                 //Children目录
                 ArrayList<JSONObject> jsonObjects = new ArrayList<>();
-
                 for (action item2 : actionArr) {
-                    if (item2.getAction_parent_id().equals("")) {
-                        System.out.println(item2.getAction_name() + "的父节点为空");
-                    } else {
-                        if (item2.getAction_parent_id().equals(item.getAction_id())) {
-                            System.out.println(item2.getAction_name() + "的父节点不为空");
+                    if (!Objects.equals(item2.getAction_parent_id(), "")) {
+                        if (Objects.equals(item2.getAction_parent_id(), item.getAction_id())) {
                             JSONObject jsonObject1 = new JSONObject();
-                            jsonObject1.put("icon", item2.getAction_icon());
+//                            jsonObject1.put("icon", item2.getAction_icon());
                             jsonObject1.put("name", item2.getAction_name());
                             jsonObject1.put("url", item2.getAction_url());
                             jsonObjects.add(jsonObject1);
-                            System.out.println("添加节点"+jsonObject1.toString());
-                            System.out.println("获取的菜单权限为：" + jsonObjects.toString());
                         }
                     }
+                    jsonObject.put("children", jsonObjects);
                 }
-                jsonObject.put("children", jsonObjects);
+            }
+            if(!jsonObject.isEmpty()) {
+                jsonObjectsVO.add(jsonObject);
             }
         }
-        System.out.println("全部的菜单权限为：" + jsonObject.toString());
-        return jsonObject.toString();
+        System.out.println("全部的菜单权限为：" + jsonObjectsVO.toString());
+        return jsonObjectsVO.toString();
     }
 }
