@@ -19,4 +19,18 @@ public class UserDo {
     private String brower;
 
     private String os;
+
+    @Override
+    public String toString() {
+        return "UserDo{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userPasswd='" + userPasswd + '\'' +
+                ", realName='" + realName + '\'' +
+                ", ip='" + ip + '\'' +
+                ", area='" + area + '\'' +
+                ", brower='" + brower + '\'' +
+                ", os='" + os + '\'' +
+                '}';
+    }
 }

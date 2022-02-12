@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan(basePackages = {"com.example.token","mapper"})
+@MapperScan(basePackages = {"com.example.token"})
 public class TokenApplication {
 
     public static void main(String[] args) {

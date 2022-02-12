@@ -21,4 +21,19 @@ public class UserDo {
     private String os;
 
     private String logintime;
+
+    @Override
+    public String toString() {
+        return "UserDo{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", userPasswd='" + userPasswd + '\'' +
+                ", realName='" + realName + '\'' +
+                ", ip='" + ip + '\'' +
+                ", area='" + area + '\'' +
+                ", brower='" + brower + '\'' +
+                ", os='" + os + '\'' +
+                ", logintime='" + logintime + '\'' +
+                '}';
+    }
 }

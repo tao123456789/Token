@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+
+<mapper namespace="com.example.token.Mapper.UserMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.example.token.BO.user.UserDo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="userPasswd" />
+        <result column="realname" jdbcType="VARCHAR" property="realName" />
+        <result column="ip" jdbcType="VARCHAR" property="ip" />
+        <result column="area" jdbcType="VARCHAR" property="area" />
+        <result column="brower" jdbcType="VARCHAR" property="brower" />
+        <result column="os" jdbcType="VARCHAR" property="os" />
+        <result column="logintime" jdbcType="VARCHAR" property="logintime" />
+    </resultMap>
+
+<!--    根据name查询某一个用户的信息-->
+    <select id="GetUserByUserName" resultMap="BaseResultMap">
+        select * from user where username = #{username}
+    </select>
+
+    <!--    根据id查询某一个用户的信息-->
+    <select id="GetUserByUserId" resultMap="BaseResultMap">
+        select * from user where id = #{userid}
+    </select>
+
+<!--    查询所有的用户信息-->
+    <select id="GetAllUser" resultMap="BaseResultMap">
+        select * from user
+    </select>
+
+    <!--删除语句-->
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where username =#{username,jdbcType=INTEGER}
+    </delete>
+
+    <!--修改语句-->
+    <update id="updateUser" parameterType="com.example.token.BO.user.UserDo">
+        update user
+        <set>
+        <if test='area!=null' >
+            area=#{area,jdbcType=VARCHAR},
+        </if>
+        <if test="ip!=null">
+            ip=#{ip,jdbcType=VARCHAR},
+        </if>
+        <if test="brower!=null">
+            brower=#{brower,jdbcType=VARCHAR},
+        </if>
+        <if test="os!=null">
+            os=#{os,jdbcType=VARCHAR},
+        </if>
+        <if test="logintime!=null">
+            logintime=#{logintime}
+        </if>
+        </set>
+        where id=#{id}
+    </update>
+
+
+<!--    token服务-->
+    <select id="checkToken" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select ifuse from token where token=#{token}
+    </select>
+
+    <insert id="insertToken" parameterType="java.lang.String">
+        insert into token (token) values (#{token})
+    </insert>
+
+</mapper>
