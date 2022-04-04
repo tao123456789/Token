@@ -1,9 +1,10 @@
 package com.example.token.Controller.MMSController.menu.Material;
 
 import com.example.token.BO.material.MaterialDo;
+import com.example.token.Impl.MMSService.ImportServiceImpl;
 import com.example.token.Interface.UserLoginToken;
-import com.example.token.Service.MMSService.ImportService;
 import com.example.token.Service.MMSService.MaterialService.MaterialService;
+import com.example.token.util.file.Impl.fileServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,10 @@ public class MaterialController {
     private MaterialService materialService;
 
     @Autowired
-    private ImportService importService;
+    private ImportServiceImpl importService;
+
+    @Autowired
+    private fileServiceImpl fileService;
 
     @UserLoginToken
     @GetMapping("/getAllMaterial")
@@ -47,14 +51,12 @@ public class MaterialController {
     @ApiOperation("上传文件")
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile file) throws Exception{
-        String fileName=file.getOriginalFilename();
-        log.info("文件名称："+fileName);
-        log.info("文件大小："+file.getSize());
         if(file.isEmpty()){
             return "文件名不能为空";
         }
         InputStream inputStream=file.getInputStream();
         log.info("stream:"+inputStream);
+        fileService.uploadFile(file,"/user/data/upload");
         try {
             List<List<Object>> list = importService.getBankListByExcel(inputStream, file.getOriginalFilename());
             inputStream.close();

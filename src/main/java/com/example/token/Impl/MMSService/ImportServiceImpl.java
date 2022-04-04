@@ -28,7 +28,6 @@ public class ImportServiceImpl implements ImportService {
     public List getBankListByExcel(InputStream inputStream, String fileName) throws Exception {
 
         final XSSFWorkbook xssfWorkbook=new XSSFWorkbook(inputStream);
-
         Sheet sheet=xssfWorkbook.getSheetAt(0);//获取第一个表的数据
 
         List<Object> list = new ArrayList<>();

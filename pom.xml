@@ -129,11 +129,18 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.13</version>
         </dependency>
-<!--        注释插件-->
+        <!-- 注释插件-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!--SpringBoot热部署配置 -->
+        <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <scope>runtime</scope>
+        <optional>true</optional>
+    </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -171,6 +178,8 @@
                 <version>2.3.7.RELEASE</version>
                 <configuration>
                     <mainClass>com.example.token.TokenApplication</mainClass>
+                    <fork>true</fork>
+                    <addResources>true</addResources>
                 </configuration>
                 <executions>
                     <execution>
