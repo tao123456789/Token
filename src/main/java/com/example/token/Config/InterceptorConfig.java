@@ -1,6 +1,6 @@
 package com.example.token.Config;
 
-import com.example.token.Interceptor.AuthenticationInterceptor;
+import com.example.token.Config.Interceptor.AuthenticationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
