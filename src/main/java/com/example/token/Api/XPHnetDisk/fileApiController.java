@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/XPHnetDisk")
 public class fileApiController{
     @Autowired
-    FileUtil fileService;
+    private FileUtil fileService;
 
     @UserLoginToken
     @GetMapping("/getFileList")

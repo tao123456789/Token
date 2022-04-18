@@ -1,10 +1,10 @@
 package com.example.token.Mapper;
 
-import com.example.token.BO.material.MaterialDo;
+import com.example.token.BO.material.MaterialBO;
 
 import java.util.List;
 
 public interface MaterialMapper {
-    MaterialDo GetMaterialByName(String material_id);
-    List<MaterialDo> GetAllMaterial();
+    MaterialBO GetMaterialByName(String material_id);
+    List<MaterialBO> GetAllMaterial();
 }

@@ -1,6 +1,6 @@
-package com.example.token.Api.MMSController.Material;
+package com.example.token.Api.MMS.Material;
 
-import com.example.token.BO.material.MaterialDo;
+import com.example.token.BO.material.MaterialBO;
 import com.example.token.util.file.ImportServiceImpl;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Service.MMSService.MaterialService.MaterialService;
@@ -35,7 +35,7 @@ public class MaterialController {
     @GetMapping("/getAllMaterial")
     @ResponseBody
     @ApiOperation("获取物料信息")
-    public List<MaterialDo> getAllMaterial(){
+    public List<MaterialBO> getAllMaterial(){
         return materialService.GetAllMaterial();
     }
 
@@ -43,7 +43,7 @@ public class MaterialController {
     @GetMapping("/getAllMaterial/{id}")
     @ResponseBody
     @ApiOperation("获取某个物料信息")
-    public MaterialDo getAllMaterialByName(@PathVariable String material_id){
+    public MaterialBO getAllMaterialByName(@PathVariable String material_id){
         return materialService.GetMaterialByName(material_id);
     }
 

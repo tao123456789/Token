@@ -1,4 +1,4 @@
-package com.example.token.Api.MMSController.menu;
+package com.example.token.Api.MMS.menu;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.token.BO.menu.action;

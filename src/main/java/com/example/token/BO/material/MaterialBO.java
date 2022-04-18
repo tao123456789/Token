@@ -3,7 +3,7 @@ package com.example.token.BO.material;
 import lombok.Data;
 
 @Data
-public class MaterialDo {
+public class MaterialBO {
 
     int id;
     String material_id;

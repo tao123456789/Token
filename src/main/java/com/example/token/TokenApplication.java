@@ -9,9 +9,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 @MapperScan(basePackages = {"com.example.token"})
 public class TokenApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(TokenApplication.class, args);
     }
-
 }
