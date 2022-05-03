@@ -8,10 +8,21 @@
 
 <mapper namespace="com.example.token.Mapper.ScheduleMapper">
     <!--定义一个名为BaseResultMap的返回类型-->
-    <resultMap id="BaseResultMap" type="com.example.token.BO.schedule.ScheduleTaskBO">
+    <resultMap id="ScheduleTaskBO" type="com.example.token.BO.schedule.ScheduleTaskBO">
         <id column="id" jdbcType="INTEGER" property="id" />
         <id column="userid" jdbcType="INTEGER" property="userid" />
         <result column="ExcuteTime" jdbcType="VARCHAR" property="ExcuteTime" />
+        <result column="Status" jdbcType="VARCHAR" property="Status" />
+        <result column="TaskContent" jdbcType="VARCHAR" property="TaskContent" />
+        <result column="CreateTime" jdbcType="VARCHAR" property="CreateTime" />
+        <result column="CreateName" jdbcType="VARCHAR" property="CreateName" />
+        <result column="UpdateTime" jdbcType="VARCHAR" property="UpdateTime" />
+        <result column="UpdateName" jdbcType="VARCHAR" property="UpdateName" />
+    </resultMap>
+    <!--定义一个名为BaseResultMap2的返回类型-->
+    <resultMap id="ScheduleBO" type="com.example.token.BO.schedule.ScheduleBO">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <id column="userid" jdbcType="INTEGER" property="userid" />
         <result column="TaskContent" jdbcType="VARCHAR" property="TaskContent" />
         <result column="CreateTime" jdbcType="VARCHAR" property="CreateTime" />
         <result column="CreateName" jdbcType="VARCHAR" property="CreateName" />
@@ -20,24 +31,28 @@
     </resultMap>
 
     <!--    查询用户每日任务表-->
-    <select id="getScheduleList" resultMap="BaseResultMap">
+    <select id="getScheduleList" resultMap="ScheduleBO">
         select * from dailyschedule where userid = #{userid,jdbcType=INTEGER}
     </select>
     <!--    查询用户每日任务表-->
-    <select id="getScheduleTaskList" resultMap="BaseResultMap">
+    <select id="getAllScheduleList" resultMap="ScheduleBO">
+        select * from dailyschedule where 1=1
+    </select>
+    <!--    查询用户每日任务表-->
+    <select id="getScheduleTaskList" resultMap="ScheduleTaskBO">
         select * from dailyscheduletask where userid = #{userid,jdbcType=INTEGER} and ExcuteTime = #{startTime,jdbcType=VARCHAR}
     </select>
     <!--    添加日常任务-->
-    <insert id="addSchedule" parameterType="com.example.token.BO.schedule.ScheduleTaskBO">
-        insert into dailyschedule(userid,ExcuteTime,TaskContent,CreateTime,CreateName,UpdateTime,UpdateName) values(#{userid},#{ExcuteTime},#{TaskContent},#{CreateTime},#{CreateName},#{UpdateTime},#{UpdateName})
+    <insert id="addSchedule" parameterType="com.example.token.BO.schedule.ScheduleBO">
+        insert into dailyschedule(userid,TaskContent,CreateTime,CreateName,UpdateTime,UpdateName) values(#{userid},#{TaskContent},#{CreateTime},#{CreateName},#{UpdateTime},#{UpdateName})
     </insert>
     <!--    添加日常任务-->
     <insert id="addScheduleTask" parameterType="com.example.token.BO.schedule.ScheduleTaskBO">
-        insert into dailyscheduletask(userid,ExcuteTime,TaskContent,CreateTime,CreateName,UpdateTime,UpdateName) values(#{userid},#{ExcuteTime},#{TaskContent},#{CreateTime},#{CreateName},#{UpdateTime},#{UpdateName})
+        insert into dailyscheduletask(userid,TaskContent,ExcuteTime,Status,CreateTime,CreateName,UpdateTime,UpdateName) values(#{userid},#{TaskContent},#{ExcuteTime},#{Status},#{CreateTime},#{CreateName},#{UpdateTime},#{UpdateName})
     </insert>
     <!--    更新任务状态-->
-    <update id="updateScheduleTaskStatus" parameterType="">
-        insert into dailyscheduletask(userid,ExcuteTime,TaskContent,CreateTime,CreateName,UpdateTime,UpdateName) values(#{userid},#{ExcuteTime},#{TaskContent},#{CreateTime},#{CreateName},#{UpdateTime},#{UpdateName})
+    <update id="updateScheduleTaskStatus" parameterType="java.lang.Integer">
+        update dailyscheduletask set Status=1 where id=#{taskid}
     </update>
 
 </mapper>
