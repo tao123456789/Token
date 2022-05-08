@@ -4,6 +4,7 @@ import com.example.token.BO.schedule.ScheduleBO;
 import com.example.token.BO.schedule.ScheduleTaskBO;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Service.Schedule.Impl.ScheduleServiceImpl;
+import com.example.token.Service.Schedule.Schedule.ScheduleTask;
 import com.example.token.util.date.DateUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,9 @@ public class ScheduleController {
 
     @Autowired
     private ScheduleServiceImpl scheduleService;
+
+    @Autowired
+    ScheduleTask scheduleTask;
 
     @UserLoginToken
     @GetMapping("/getScheduleTaskList/{userid}")
@@ -59,5 +63,11 @@ public class ScheduleController {
     public Boolean updateScheduleTaskStatus(@PathVariable("taskid") int taskid) {
         log.info(String.valueOf(taskid));
         return scheduleService.updateScheduleTaskStatus(taskid);
+    }
+
+    @GetMapping("/createScheduleTask")
+    @ApiOperation("生成每日任务")
+    public void createScheduleTask(){
+        scheduleTask.scheduleTask();
     }
 }
