@@ -42,7 +42,7 @@ public class LoginController{
             String token = UUID.randomUUID().toString().replaceAll("-", "");
             try{
                 //保存token,key为token,value为id,有效期为1个小时
-                redisUtils.set(token, userDo.getId(), 1, TimeUnit.MINUTES);
+                redisUtils.set(token, userDo.getId(), 1, TimeUnit.HOURS);
                 //更新登录信息
                 if(userService.updateUser(userDo)==1){
                     System.out.println("用户登录信息更新成功！");
