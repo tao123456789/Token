@@ -1,4 +1,4 @@
-package com.example.token.BO.material;
+package com.example.token.Entity.BO.material;
 
 import lombok.Data;
 

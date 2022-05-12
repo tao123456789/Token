@@ -1,9 +1,10 @@
 package com.example.token.Api.MMS.menu;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.token.BO.menu.action;
 import com.example.token.Config.Interface.UserLoginToken;
+import com.example.token.Entity.BO.menu.action;
 import com.example.token.Service.MMSService.MenuService.MenuService;
+import com.example.token.Utils.user.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,15 @@ public class MenuController {
     @Autowired
     @Qualifier("MenuService1")
     private MenuService menuService;
+    @Autowired
+    UserUtil userUtil;
 
     @UserLoginToken
-    @GetMapping("/getMenu/{userid}")
+    @GetMapping("/getMenu")
     @ResponseBody
     @ApiOperation("获取用户权限")
-    public String GetUserMenu(@PathVariable int userid) {
-
+    public String GetUserMenu() {
+        int userid=userUtil.getCurrentUserID();
         Integer groupid = menuService.GetUserGroup(userid);
         List<Integer> actionid;//获取用户的菜单权限id
         //用户权限集合

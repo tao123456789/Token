@@ -1,10 +1,10 @@
 package com.example.token.Api.MMS.Material;
 
-import com.example.token.BO.material.MaterialBO;
-import com.example.token.util.file.ImportServiceImpl;
+import com.example.token.Entity.BO.material.MaterialBO;
+import com.example.token.Utils.file.ImportServiceImpl;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Service.MMSService.MaterialService.MaterialService;
-import com.example.token.util.file.FileUtil;
+import com.example.token.Utils.file.FileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

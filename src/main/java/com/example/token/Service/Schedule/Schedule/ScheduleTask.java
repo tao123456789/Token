@@ -1,9 +1,9 @@
 package com.example.token.Service.Schedule.Schedule;
 
-import com.example.token.BO.schedule.ScheduleBO;
-import com.example.token.BO.schedule.ScheduleTaskBO;
+import com.example.token.Entity.BO.schedule.ScheduleBO;
+import com.example.token.Entity.BO.schedule.ScheduleTaskBO;
 import com.example.token.Mapper.ScheduleMapper;
-import com.example.token.util.date.DateUtil;
+import com.example.token.Utils.date.DateUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

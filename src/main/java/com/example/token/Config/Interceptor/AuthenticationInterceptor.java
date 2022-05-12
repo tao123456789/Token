@@ -1,21 +1,21 @@
 package com.example.token.Config.Interceptor;
 
-import com.example.token.Service.UserService.Impl.TokenServiceImpl;
 import com.example.token.Config.Interface.PassToken;
 import com.example.token.Config.Interface.UserLoginToken;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.token.Utils.redis.RedisUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 public class AuthenticationInterceptor implements HandlerInterceptor {
-//    @Reference
-    @Autowired
-    private TokenServiceImpl tokenService;
+
+    @Resource
+    RedisUtils redisUtils;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception {
@@ -41,29 +41,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 if (token == null) {
                     throw new RuntimeException("无token，请重新登录");
                 }
-//                // 获取 token 中的 user id
-//                String userId;
-//                try {
-//                    userId = JWT.decode(token).getAudience().get(0);
-////                    System.out.println("token："+token+"对应的userid是:"+userId);
-//                } catch (JWTDecodeException j) {
-//                    throw new RuntimeException("401");
-//                }
-//                UserDo user = userService.findUserById(userId);
-//                if (user == null) {
-//                    throw new RuntimeException("用户不存在，请重新登录");
-//                }
-                // 验证 token
-//                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("yt")).build();
-//                try {
-////                    jwtVerifier.verify(token);
-//
-//                } catch (JWTVerificationException e) {
-//                    throw new RuntimeException("401");
-//                }
                 //验证token
-                System.out.println(token);
-                if(tokenService.checkToken(token)==0){
+                if(!redisUtils.hasKey(token)){
                     throw new RuntimeException("token值失效，请重新登录");
                 }
                 return true;

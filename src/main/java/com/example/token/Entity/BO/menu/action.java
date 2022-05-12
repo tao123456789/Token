@@ -1,4 +1,4 @@
-package com.example.token.BO.menu;
+package com.example.token.Entity.BO.menu;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.example.token.Mapper;
 
-import com.example.token.BO.user.UserDo;
+import com.example.token.Entity.BO.user.UserDo;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 

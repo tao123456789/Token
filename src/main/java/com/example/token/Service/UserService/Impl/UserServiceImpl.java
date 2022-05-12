@@ -1,6 +1,6 @@
 package com.example.token.Service.UserService.Impl;
 
-import com.example.token.BO.user.UserDo;
+import com.example.token.Entity.BO.user.UserDo;
 import com.example.token.Mapper.UserMapper;
 import com.example.token.Service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +35,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateUser(UserDo user){
-        int i=0;
-        try {
-            i = userMapper.updateUser(user);
-            if(i==1){
-                System.out.println("更新成功");
-                return i;
-            }
-        }catch (Exception e){
-            System.out.println("更新失败");
-        }
-        return i;
+        System.out.println("更新用户登陆信息："+user);
+        return userMapper.updateUser(user);
     }
 
     @Override

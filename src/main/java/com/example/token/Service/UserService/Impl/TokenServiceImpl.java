@@ -13,7 +13,7 @@ public class TokenServiceImpl implements TokenService {
     @Resource
     private UserMapper userMapper;
     @Override
-    public String getToken(int id,String name) {
+    public String createToken(int id,String name) {
         return JWT.create().withAudience(String.valueOf(id)).sign(Algorithm.HMAC256(name));
     }
 

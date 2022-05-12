@@ -1,4 +1,4 @@
-package com.example.token.BO;
+package com.example.token.Entity.BO;
 
 import lombok.Data;
 

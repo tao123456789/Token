@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
+import java.util.ArrayList;
 
 @Slf4j
 @RestController
@@ -22,20 +23,20 @@ public class LoggerApi {
     @ResponseBody
     @ApiOperation("获取日志信息")
     public String getLog() throws IOException {
-        File file=new File("/user/Token.log");
-        String log="";
+        File file=new File("/jar/Token.log");
+        ArrayList<String> log=new ArrayList<>();
         if(!file.exists()){
             System.out.println("日志文件不存在");
             return "日志文件不存在";
         }
-        FileInputStream fis=new FileInputStream("/user/Token.log");
+        FileInputStream fis=new FileInputStream("/jar/Token.log");
         InputStreamReader is=new InputStreamReader(fis,"UTF-8");
         BufferedReader br=new BufferedReader(is);
         String line="";
         while ((line = br.readLine())!=null){
-            log=log+line;
+            log.add(line);
         }
-        System.out.println(log);
-        return log;
+        System.out.println("获取日志文件成功，日志大小为："+log.size());
+        return log.toString();
     }
 }

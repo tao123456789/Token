@@ -1,6 +1,6 @@
 package com.example.token.Service.UserService;
 
-import com.example.token.BO.user.UserDo;
+import com.example.token.Entity.BO.user.UserDo;
 
 import java.util.List;
 

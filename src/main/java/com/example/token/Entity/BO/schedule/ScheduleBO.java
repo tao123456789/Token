@@ -1,18 +1,14 @@
-package com.example.token.BO.schedule;
+package com.example.token.Entity.BO.schedule;
 
 import lombok.Data;
 
 @Data
-public class ScheduleTaskBO {
+public class ScheduleBO {
     private int id;
 
     private int userid;
 
     private String TaskContent;
-
-    private String Status;
-
-    private String ExcuteTime;
 
     private String CreateTime;
 
@@ -24,12 +20,10 @@ public class ScheduleTaskBO {
 
     @Override
     public String toString() {
-        return "ScheduleTaskBO{" +
+        return "ScheduleBo{" +
                 "id=" + id +
                 ", userid=" + userid +
                 ", TaskContent='" + TaskContent + '\'' +
-                ", Status='" + Status + '\'' +
-                ", ScheduleTime='" + ExcuteTime + '\'' +
                 ", CreateTime='" + CreateTime + '\'' +
                 ", CreateName='" + CreateName + '\'' +
                 ", UpdateTime='" + UpdateTime + '\'' +

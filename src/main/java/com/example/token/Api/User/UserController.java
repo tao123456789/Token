@@ -1,6 +1,6 @@
-package com.example.token.Api;
+package com.example.token.Api.User;
 
-import com.example.token.BO.user.UserDo;
+import com.example.token.Entity.BO.user.UserDo;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Service.UserService.UserService;
 import io.swagger.annotations.Api;

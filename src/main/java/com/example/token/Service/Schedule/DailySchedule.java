@@ -1,4 +1,4 @@
-package com.example.token.Schedule;
+package com.example.token.Service.Schedule;
 
 import com.example.token.Service.Schedule.Schedule.ScheduleTask;
 import org.springframework.beans.factory.annotation.Autowired;

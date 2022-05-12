@@ -8,7 +8,7 @@
 
 <mapper namespace="com.example.token.Mapper.UserMapper">
     <!--定义一个名为BaseResultMap的返回类型-->
-    <resultMap id="BaseResultMap" type="com.example.token.BO.user.UserDo">
+    <resultMap id="BaseResultMap" type="com.example.token.Entity.BO.user.UserDo">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="username" jdbcType="VARCHAR" property="userName" />
         <result column="password" jdbcType="VARCHAR" property="userPasswd" />
@@ -41,7 +41,7 @@
     </delete>
 
     <!--修改语句-->
-    <update id="updateUser" parameterType="com.example.token.BO.user.UserDo">
+    <update id="updateUser" parameterType="com.example.token.Entity.BO.user.UserDo">
         update user
         <set>
         <if test='area!=null' >

@@ -1,6 +1,6 @@
 package com.example.token.Service.MMSService.MenuService;
 
-import com.example.token.BO.menu.action;
+import com.example.token.Entity.BO.menu.action;
 
 import java.util.List;
 

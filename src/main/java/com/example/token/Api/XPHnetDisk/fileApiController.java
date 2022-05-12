@@ -1,7 +1,7 @@
 package com.example.token.Api.XPHnetDisk;
 
 import com.example.token.Config.Interface.UserLoginToken;
-import com.example.token.util.file.FileUtil;
+import com.example.token.Utils.file.FileUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.example.token.Service.Schedule.Impl;
 
-import com.example.token.BO.schedule.ScheduleBO;
-import com.example.token.BO.schedule.ScheduleTaskBO;
+import com.example.token.Entity.BO.schedule.ScheduleBO;
+import com.example.token.Entity.BO.schedule.ScheduleTaskBO;
 import com.example.token.Mapper.ScheduleMapper;
 import com.example.token.Service.Schedule.ScheduleService;
 import lombok.extern.slf4j.Slf4j;

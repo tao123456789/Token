@@ -1,7 +1,7 @@
 package com.example.token.Service.Schedule;
 
-import com.example.token.BO.schedule.ScheduleBO;
-import com.example.token.BO.schedule.ScheduleTaskBO;
+import com.example.token.Entity.BO.schedule.ScheduleBO;
+import com.example.token.Entity.BO.schedule.ScheduleTaskBO;
 
 import java.util.List;
 
