@@ -3,18 +3,23 @@ package com.example.token.Service.Schedule.Schedule;
 import com.example.token.Entity.BO.schedule.ScheduleBO;
 import com.example.token.Entity.BO.schedule.ScheduleTaskBO;
 import com.example.token.Mapper.ScheduleMapper;
+import com.example.token.Service.EmailService.EmailServiceImpl;
 import com.example.token.Utils.date.DateUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import java.util.List;
 
 @Service
     public class ScheduleTask {
     @Resource
     ScheduleMapper scheduleMapper;
+    @Resource
+    EmailServiceImpl emailServiceImpl;
 
-    public void scheduleTask() {
+
+    public void dailyScheduleTask() throws MessagingException {
         List<ScheduleBO> scheduleBOList = scheduleMapper.getAllScheduleList();
         for (ScheduleBO scheduleBO : scheduleBOList) {
             //类型转换
@@ -32,5 +37,6 @@ import java.util.List;
                 System.out.println("添加成功！");
             }
         }
+        emailServiceImpl.SendToByQQ("【每日任务更新】",scheduleBOList.toString());
     }
 }

@@ -3,6 +3,7 @@ package com.example.token.Service.Schedule;
 import com.example.token.Entity.BO.schedule.ScheduleBO;
 import com.example.token.Entity.BO.schedule.ScheduleTaskBO;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 public interface ScheduleService {
@@ -11,5 +12,5 @@ public interface ScheduleService {
     List<ScheduleTaskBO> getScheduleTaskList(int userid, String startTime);
     Boolean addSchedule(ScheduleBO scheduleBO);
     Boolean addScheduleTask(ScheduleTaskBO scheduleTaskBO);
-    Boolean updateScheduleTaskStatus(int taskid);
+    Boolean updateScheduleTaskStatus(int taskid) throws MessagingException;
 }

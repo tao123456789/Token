@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -61,7 +62,7 @@ public class LoginController{
 
     @UserLoginToken
     @GetMapping("/getMessage")
-    public String getMessage() {
+    public String getMessage() throws MessagingException {
         return "你已通过验证";
     }
 }

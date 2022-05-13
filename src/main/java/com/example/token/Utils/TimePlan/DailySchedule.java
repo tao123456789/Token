@@ -1,14 +1,15 @@
-package com.example.token.Service.Schedule;
+package com.example.token.Utils.TimePlan;
 
 import com.example.token.Service.Schedule.Schedule.ScheduleTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
+
 @Component
 public class DailySchedule {
 
-    //每两秒执行一次
     /*
     1，定时任务的cron的格式
     （1）秒 分 时 日 月 星期 年
@@ -61,8 +62,14 @@ public class DailySchedule {
 
     //每天0点执行一次:0 0 0 * * ?
     @Scheduled(cron = "0 0 0 * * ?")
-    public void Schedule1(){
+    public void Schedule1() throws MessagingException {
         System.out.println("【定时任务】每日任务添加");
-        scheduleTask.scheduleTask();
+        scheduleTask.dailyScheduleTask();
+    }
+
+    //每一个整点执行一次:0 0 * * * ?
+    @Scheduled(cron = "0 0 * * * ?")
+    public void Schedule2() {
+        System.out.println("整点定时任务");
     }
 }

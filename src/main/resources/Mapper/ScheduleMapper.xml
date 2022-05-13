@@ -42,6 +42,10 @@
     <select id="getScheduleTaskList" resultMap="ScheduleTaskBO">
         select * from dailyscheduletask where userid = #{userid,jdbcType=INTEGER} and ExcuteTime = #{startTime,jdbcType=VARCHAR}
     </select>
+    <!--    查询单个任务-->
+    <select id="getScheduleTaskListById" resultMap="ScheduleTaskBO">
+        select * from dailyscheduletask where id = #{id,jdbcType=INTEGER}
+    </select>
     <!--    添加日常任务-->
     <insert id="addSchedule" parameterType="com.example.token.Entity.BO.schedule.ScheduleBO">
         insert into dailyschedule(userid,TaskContent,CreateTime,CreateName,UpdateTime,UpdateName) values(#{userid},#{TaskContent},#{CreateTime},#{CreateName},#{UpdateTime},#{UpdateName})

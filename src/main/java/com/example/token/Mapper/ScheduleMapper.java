@@ -12,6 +12,7 @@ public interface ScheduleMapper {
     List<ScheduleBO> getScheduleList(@Param("userid") int userid);
     List<ScheduleBO> getAllScheduleList();
     List<ScheduleTaskBO> getScheduleTaskList(@Param("userid") int userid, @Param("startTime") String startTime);
+    ScheduleTaskBO getScheduleTaskListById(@Param("id") int id);
     Boolean addSchedule(ScheduleBO scheduleBo);
     Boolean addScheduleTask(ScheduleTaskBO scheduleTaskBO);
     Boolean updateScheduleTaskStatus(int taskid);
