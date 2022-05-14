@@ -5,6 +5,7 @@ import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.user.UserBO;
 import com.example.token.Service.EmailService.EmailServiceImpl;
 import com.example.token.Service.UserService.UserService;
+import com.example.token.Utils.http.HttpUtil;
 import com.example.token.Utils.redis.RedisUtils;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +32,10 @@ public class LoginController{
     RedisUtils redisUtils;
     @Resource
     EmailServiceImpl emailServiceImpl;
-
+    @Resource
+    HttpUtil httpUtil;
+    @Resource
+    HttpServletRequest httpServletRequest;
 
     //登录
     @PostMapping ("/login")
@@ -43,6 +48,8 @@ public class LoginController{
         if(userBean.getUserPasswd().equals(userBO.getUserPasswd())){
             userBO.setId(userBean.getId());
             userBO.setRealName(userBean.getRealName());
+            System.out.println("登录请求："+httpServletRequest);
+            userBO.setIp(httpUtil.getIpAddr(httpServletRequest));
             System.out.println("登录信息："+userBO);
             //生成token
             String token = UUID.randomUUID().toString().replaceAll("-", "");
