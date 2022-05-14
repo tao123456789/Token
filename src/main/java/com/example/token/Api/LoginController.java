@@ -43,6 +43,7 @@ public class LoginController{
         if(userBean.getUserPasswd().equals(userBO.getUserPasswd())){
             userBO.setId(userBean.getId());
             userBO.setRealName(userBean.getRealName());
+            System.out.println("登录信息："+userBO);
             //生成token
             String token = UUID.randomUUID().toString().replaceAll("-", "");
             try{
@@ -65,7 +66,7 @@ public class LoginController{
         }else{
             System.out.println("登录密码错误！！！");
         }
-        return "登录失败";
+        return "false";
     }
 
     @UserLoginToken

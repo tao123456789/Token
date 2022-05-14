@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
 import java.util.List;
 
 @UserLoginToken
@@ -61,14 +60,14 @@ public class ScheduleController {
 
     @GetMapping("/updateScheduleTaskStatus/{taskid}")
     @ApiOperation("更新任务状态")
-    public Boolean updateScheduleTaskStatus(@PathVariable("taskid") int taskid) throws MessagingException {
+    public Boolean updateScheduleTaskStatus(@PathVariable("taskid") int taskid) throws Exception {
         log.info(String.valueOf(taskid));
         return scheduleServiceImpl.updateScheduleTaskStatus(taskid);
     }
 
     @GetMapping("/createScheduleTask")
     @ApiOperation("生成每日任务")
-    public void createScheduleTask() throws MessagingException {
+    public void createScheduleTask() throws Exception {
         scheduleTask.dailyScheduleTask();
     }
 }

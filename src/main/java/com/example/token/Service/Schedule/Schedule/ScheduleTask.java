@@ -8,7 +8,6 @@ import com.example.token.Utils.date.DateUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
 import java.util.List;
 
 @Service
@@ -19,7 +18,7 @@ import java.util.List;
     EmailServiceImpl emailServiceImpl;
 
 
-    public void dailyScheduleTask() throws MessagingException {
+    public void dailyScheduleTask() throws Exception {
         List<ScheduleBO> scheduleBOList = scheduleMapper.getAllScheduleList();
         for (ScheduleBO scheduleBO : scheduleBOList) {
             //类型转换

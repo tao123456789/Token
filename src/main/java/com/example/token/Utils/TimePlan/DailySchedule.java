@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.mail.MessagingException;
-
 @Component
 public class DailySchedule {
 
@@ -62,7 +60,7 @@ public class DailySchedule {
 
     //每天0点执行一次:0 0 0 * * ?
     @Scheduled(cron = "0 0 0 * * ?")
-    public void Schedule1() throws MessagingException {
+    public void Schedule1() throws Exception {
         System.out.println("【定时任务】每日任务添加");
         scheduleTask.dailyScheduleTask();
     }

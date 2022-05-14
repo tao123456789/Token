@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
 import java.util.List;
 
 @Slf4j
@@ -44,7 +43,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Boolean updateScheduleTaskStatus(int taskid) throws MessagingException {
+    public Boolean updateScheduleTaskStatus(int taskid) throws Exception {
         ScheduleTaskBO scheduleTaskBO=scheduleMapper.getScheduleTaskListById(taskid);
         String content="恭喜您！：【"+scheduleTaskBO.getExcuteTime()+"】的任务：【"+scheduleTaskBO.getTaskContent()+"】 在【"+ new DateUtil().getNowFormat3() +"】已经完成了！请再接再厉，加油！";
         emailServiceImpl.SendToByQQ("1","【每日任务更新】",content);
