@@ -1,13 +1,16 @@
 package com.example.token.Api.User;
 
-import com.example.token.Entity.BO.user.UserDo;
 import com.example.token.Config.Interface.UserLoginToken;
+import com.example.token.Entity.BO.user.UserBO;
+import com.example.token.Entity.VO.user.UserModuleVO;
 import com.example.token.Service.UserService.UserService;
+import com.example.token.Utils.user.UserUtil;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @UserLoginToken
@@ -19,39 +22,51 @@ public class UserController {
     @Autowired
     @Qualifier("userService1")
     private UserService userService;
+    @Resource
+    UserUtil userUtil;
+
 
     @GetMapping("/getAllUser")
-    public List<UserDo> GetAllUser(){
+    public List<UserBO> GetAllUser(){
 
-        List<UserDo> userDoList = null;
+        List<UserBO> userBOList = null;
         if (!userService.GetAllUser().isEmpty()) {
-            userDoList = userService.GetAllUser();
+            userBOList = userService.GetAllUser();
 //            System.out.println("获取到的userlist:"+userDoList);
         }else {
             System.out.println("查无此人！！！");
         }
-        return userDoList;
+        return userBOList;
     }
 
     @GetMapping("/getUserByUserId/{userid}")
-    public UserDo GetUserByUserId(@PathVariable String userid){
+    public UserBO GetUserByUserId(@PathVariable String userid){
 //        System.out.println("将要获取的username:"+id);
 //        System.out.println("获取到的username:"+userService.GetUserByName(id));
         return userService.GetUserByUserId(userid);
     }
 
     @GetMapping("/getUserByUserName/{username}")
-    public UserDo GetUserByUesrName(@PathVariable String username){
+    public UserBO GetUserByUesrName(@PathVariable String username){
 //        System.out.println("将要获取的username:"+id);
 //        System.out.println("获取到的username:"+userService.GetUserByName(id));
         return userService.GetUserByUserName(username);
     }
 
     @PostMapping("/updateUserInfo")
-    public Boolean updateUserInfo(@RequestBody UserDo userDo){
-        int i=userService.updateUser(userDo);
+    public Boolean updateUserInfo(@RequestBody UserBO userBO){
+        int i=userService.updateUser(userBO);
         System.out.println("更新？："+i);
         return (i==1);
+    }
+
+    @GetMapping("/GetModuleByUserId")
+    public List<UserModuleVO> GetModuleByUserId(){
+        int userid=userUtil.getCurrentUserID();
+        //获取用户模块权限
+        List<UserModuleVO> userModuleVOList=userService.getUserModuleByUserId(userid);
+        System.out.println("用户获取模块权限："+userModuleVOList.toString());
+        return userModuleVOList;
     }
 
 }

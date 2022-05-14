@@ -1,30 +1,35 @@
 package com.example.token.Service.UserService.Impl;
 
-import com.example.token.Entity.BO.user.UserDo;
+import com.example.token.Entity.BO.user.UserBO;
+import com.example.token.Entity.VO.user.UserModuleVO;
+import com.example.token.Mapper.ModuleMapper;
 import com.example.token.Mapper.UserMapper;
 import com.example.token.Service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service("userService1")
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+    @Resource
+    ModuleMapper moduleMapper;
 
     @Override
-    public List<UserDo> GetAllUser(){
+    public List<UserBO> GetAllUser(){
         return userMapper.GetAllUser();
     }
 
     @Override
-    public UserDo GetUserByUserId(String userid){
+    public UserBO GetUserByUserId(String userid){
         return userMapper.GetUserByUserId(userid);
     }
 
     @Override
-    public UserDo GetUserByUserName(String username) {
+    public UserBO GetUserByUserName(String username) {
         return userMapper.GetUserByUserName(username);
     }
 
@@ -34,14 +39,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUser(UserDo user){
+    public int updateUser(UserBO user){
         System.out.println("更新用户登陆信息："+user);
         return userMapper.updateUser(user);
     }
 
     @Override
-    public int insertUser(UserDo user){
+    public int insertUser(UserBO user){
         return userMapper.insertUser(user);
+    }
+
+    @Override
+    public List<UserModuleVO> getUserModuleByUserId(int userid) {
+        return moduleMapper.getUserModuleByUserId(userid);
     }
 
 }

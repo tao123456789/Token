@@ -36,7 +36,7 @@ public class QQEmailUtils {
         //得到邮差对象
         Transport transport = session.getTransport();
         //连接自己的邮箱账户
-        transport.connect("3190630341@qq.com", "ndkxjcbyduopdehh");//密码为刚才得到的授权码
+        transport.connect("3190630341@qq.com", "ybvbjwwphiqydfhj");//密码为刚才得到的授权码
         transport.sendMessage(message, message.getAllRecipients());
     }
 }

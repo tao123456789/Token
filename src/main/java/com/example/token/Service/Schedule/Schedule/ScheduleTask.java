@@ -37,6 +37,6 @@ import java.util.List;
                 System.out.println("添加成功！");
             }
         }
-        emailServiceImpl.SendToByQQ("【每日任务更新】",scheduleBOList.toString());
+        emailServiceImpl.SendToByQQ("1","【每日任务更新】",scheduleBOList.toString());
     }
 }

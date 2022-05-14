@@ -1,14 +1,16 @@
 package com.example.token.Service.UserService;
 
-import com.example.token.Entity.BO.user.UserDo;
+import com.example.token.Entity.BO.user.UserBO;
+import com.example.token.Entity.VO.user.UserModuleVO;
 
 import java.util.List;
 
 public interface UserService {
-    List<UserDo> GetAllUser();
-    UserDo GetUserByUserId(String userid);
-    UserDo GetUserByUserName(String username);
-    int insertUser(UserDo user);
+    List<UserBO> GetAllUser();
+    UserBO GetUserByUserId(String userid);
+    UserBO GetUserByUserName(String username);
+    int insertUser(UserBO user);
     int deleteUser(String username);
-    int updateUser(UserDo user);
+    int updateUser(UserBO user);
+    List<UserModuleVO> getUserModuleByUserId(int userid);
 }

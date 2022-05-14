@@ -9,7 +9,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +38,6 @@ public class MenuController {
         List<Integer> actionid;//获取用户的菜单权限id
         //用户权限集合
         ArrayList<action> actionArr = new ArrayList<>();
-
         if (groupid == 0) {
             throw new RuntimeException("用户未加入权限组！");
         } else {

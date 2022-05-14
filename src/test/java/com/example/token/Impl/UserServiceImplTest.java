@@ -1,6 +1,6 @@
 package com.example.token.Impl;
 
-import com.example.token.Entity.BO.user.UserDo;
+import com.example.token.Entity.BO.user.UserBO;
 import com.example.token.Service.UserService.Impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,8 @@ class UserServiceImplTest {
 
     @Test
     void getAllUser() {
-        List<UserDo> userDoList=userService.GetAllUser();
-        System.out.println(userDoList);
+        List<UserBO> userBOList =userService.GetAllUser();
+        System.out.println(userBOList);
         System.out.println(userService.GetUserByUserId("1"));
     }
 

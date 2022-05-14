@@ -15,8 +15,8 @@ public class EmailServiceImpl {
     SubscriberMapper subscriberMapper;
     @Resource
     QQEmailUtils qqEmailUtils;
-    public void SendToByQQ(String tittle,String content) throws MessagingException {
-        List<SubscriberBO> subscriberBOList=subscriberMapper.getSubscriberByType("1");
+    public void SendToByQQ(String type,String tittle,String content) throws MessagingException {
+        List<SubscriberBO> subscriberBOList=subscriberMapper.getSubscriberByType(type);
         for(SubscriberBO subscriberBO:subscriberBOList) {
             System.out.println("发送： "+subscriberBO.getSubscriber()+"  邮件，账号为： "+subscriberBO.getMessage()+" ，内容为： "+content);
             qqEmailUtils.SendToByQQ(tittle, content, subscriberBO.getMessage());

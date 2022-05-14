@@ -28,7 +28,7 @@
 
     <!--    查询权限的前端地址-->
     <select id="GetActionUrl" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select * from action1 where action_id = #{actionid,jdbcType=INTEGER}
+        select * from mms_action where action_id = #{actionid,jdbcType=INTEGER}
     </select>
 
 </mapper>

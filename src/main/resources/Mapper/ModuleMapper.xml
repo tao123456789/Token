@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.example.token.Mapper.ModuleMapper">
+    <!--定义一个基础返回类型-->
+    <resultMap id="BaseResultMap" type="com.example.token.Entity.VO.user.UserModuleVO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userid" jdbcType="INTEGER" property="userid" />
+        <result column="moduleid" jdbcType="INTEGER" property="moduleid" />
+        <result column="module_name" jdbcType="VARCHAR" property="module_name" />
+        <result column="module_url" jdbcType="VARCHAR" property="module_url" />
+        <result column="img_url" jdbcType="VARCHAR" property="img_url" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+    </resultMap>
+
+    <select id="getUserModuleByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select um.userid,m.module_name,m.module_url,m.img_url,m.description from user_module um
+        left join module m on m.id=um.moduleid
+        where um.userid=#{userid,jdbcType=INTEGER}
+    </select>
+</mapper>

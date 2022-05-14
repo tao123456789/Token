@@ -15,6 +15,9 @@ public class UserUtil {
 
     public int getCurrentUserID(){
         String token = httpServletRequest.getHeader("token");
+        if(token==null){
+            throw new RuntimeException("无token，请重新登录");
+        }
         System.out.println("获取当前登录用户token："+token);
         System.out.println("获取当前登录用户id："+(int) redisUtils.get(token));
         return (int) redisUtils.get(token);

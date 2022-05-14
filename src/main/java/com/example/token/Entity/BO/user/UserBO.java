@@ -3,7 +3,7 @@ package com.example.token.Entity.BO.user;
 import lombok.Data;
 
 @Data
-public class UserDo {
+public class UserBO {
     private int id;
 
     private String userName;
