@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/getUserByUserId/{userid}")
-    public UserBO GetUserByUserId(@PathVariable String userid){
+    public UserBO GetUserByUserId(@PathVariable int userid){
 //        System.out.println("将要获取的username:"+id);
 //        System.out.println("获取到的username:"+userService.GetUserByName(id));
         return userService.GetUserByUserId(userid);
@@ -62,7 +62,7 @@ public class UserController {
 
     @GetMapping("/GetModuleByUserId")
     public List<UserModuleVO> GetModuleByUserId(){
-        int userid=userUtil.getCurrentUserID();
+        int userid=userUtil.getCurrentUserInfo().getId();
         //获取用户模块权限
         List<UserModuleVO> userModuleVOList=userService.getUserModuleByUserId(userid);
         System.out.println("用户获取模块权限："+userModuleVOList.toString());

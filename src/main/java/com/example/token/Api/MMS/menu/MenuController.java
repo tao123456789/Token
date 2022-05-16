@@ -33,7 +33,7 @@ public class MenuController {
     @ResponseBody
     @ApiOperation("获取用户权限")
     public String GetUserMenu() {
-        int userid=userUtil.getCurrentUserID();
+        int userid=userUtil.getCurrentUserInfo().getId();
         Integer groupid = menuService.GetUserGroup(userid);
         List<Integer> actionid;//获取用户的菜单权限id
         //用户权限集合

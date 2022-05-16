@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserBO GetUserByUserId(String userid){
+    public UserBO GetUserByUserId(int userid){
         return userMapper.GetUserByUserId(userid);
     }
 
@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int deleteUser(String name){
-        return userMapper.deleteUser(name);
+    public int deleteUser(int nameid){
+        return userMapper.deleteUser(nameid);
     }
 
     @Override

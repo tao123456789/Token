@@ -37,8 +37,13 @@
 
     <!--删除语句-->
     <delete id="deleteUser" parameterType="java.lang.Integer">
-        delete from user where username =#{username,jdbcType=INTEGER}
+        delete from user where id =#{userid,jdbcType=INTEGER}
     </delete>
+
+    <!--新增语句-->
+    <insert id="insertUser" parameterType="com.example.token.Entity.BO.user.UserBO">
+        insert into user(username,userPasswd,realName) values(#{username},#{userpassword},#{realName})
+    </insert>
 
     <!--修改语句-->
     <update id="updateUser" parameterType="com.example.token.Entity.BO.user.UserBO">

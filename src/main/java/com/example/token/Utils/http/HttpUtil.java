@@ -16,6 +16,12 @@ public class HttpUtil {
      * @throws Exception
      */
     public static String getIpAddr(HttpServletRequest request) {
+        System.out.println("x-forwarded-for:"+request.getHeader("x-forwarded-for"));
+        System.out.println("Proxy-Client-IP:"+request.getHeader("Proxy-Client-IP"));
+        System.out.println("WL-Proxy-Client-IP:"+request.getHeader("WL-Proxy-Client-IP"));
+        System.out.println("HTTP_CLIENT_IP:"+request.getHeader("HTTP_CLIENT_IP"));
+        System.out.println("HTTP_X_FORWARDED_FOR:"+request.getHeader("HTTP_X_FORWARDED_FOR"));
+        System.out.println("RemoteAddr:"+request.getRemoteAddr());
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");

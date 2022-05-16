@@ -6,6 +6,7 @@ import com.example.token.Entity.BO.schedule.ScheduleTaskBO;
 import com.example.token.Service.Schedule.Impl.ScheduleServiceImpl;
 import com.example.token.Service.Schedule.Schedule.ScheduleTask;
 import com.example.token.Utils.date.DateUtil;
+import com.example.token.Utils.user.UserUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -25,28 +26,31 @@ public class ScheduleController {
     @Resource
     ScheduleTask scheduleTask;
 
+    @Resource
+    UserUtil userUtil;
+
     @UserLoginToken
-    @GetMapping("/getScheduleTaskList/{userid}")
+    @GetMapping("/getScheduleTaskList")
     @ApiOperation("获取每日任务列表")
-    public List<ScheduleTaskBO> getScheduleTaskList(@PathVariable("userid")  int userid) {
-        return scheduleServiceImpl.getScheduleTaskList(userid,new DateUtil().getNowFormat2());
+    public List<ScheduleTaskBO> getScheduleTaskList() {
+        return scheduleServiceImpl.getScheduleTaskList(userUtil.getCurrentUserInfo().getId(),new DateUtil().getNowFormat2());
     }
 
     @UserLoginToken
-    @GetMapping("/getScheduleList/{userid}")
+    @GetMapping("/getScheduleList")
     @ApiOperation("获取每日任务列表")
-    public List<ScheduleBO> getScheduleList(@PathVariable("userid")  int userid) {
-        return scheduleServiceImpl.getScheduleList(userid);
+    public List<ScheduleBO> getScheduleList() {
+        return scheduleServiceImpl.getScheduleList(userUtil.getCurrentUserInfo().getId());
     }
 
     @PostMapping("/addSchedule")
     @ApiOperation("添加每日任务")
     public Boolean addSchedule(@RequestBody ScheduleBO scheduleBO) {
-        scheduleBO.setUserid(1);
-        scheduleBO.setUpdateTime(new DateUtil().getNowFormat2());
-        scheduleBO.setCreateTime(new DateUtil().getNowFormat2());
-        scheduleBO.setCreateName("admin");
-        scheduleBO.setUpdateName("admin");
+        scheduleBO.setUserid(userUtil.getCurrentUserInfo().getId());
+        scheduleBO.setUpdateTime(new DateUtil().getNowFormat3());
+        scheduleBO.setCreateTime(new DateUtil().getNowFormat3());
+        scheduleBO.setCreateName(userUtil.getCurrentUserInfo().getRealName());
+        scheduleBO.setUpdateName(userUtil.getCurrentUserInfo().getRealName());
         log.info(String.valueOf(scheduleBO));
         return scheduleServiceImpl.addSchedule(scheduleBO);
     }

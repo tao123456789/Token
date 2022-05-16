@@ -11,9 +11,9 @@ import java.util.List;
 public interface UserMapper {
     List<UserBO> GetAllUser();
     UserBO GetUserByUserName(String username);
-    UserBO GetUserByUserId(String userid);
+    UserBO GetUserByUserId(int userid);
     int insertUser(UserBO user);
-    int deleteUser(String name);
+    int deleteUser(int userid);
     int updateUser(UserBO user);
 
 //    token服务

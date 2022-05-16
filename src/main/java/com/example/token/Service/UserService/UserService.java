@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface UserService {
     List<UserBO> GetAllUser();
-    UserBO GetUserByUserId(String userid);
+    UserBO GetUserByUserId(int userid);
     UserBO GetUserByUserName(String username);
     int insertUser(UserBO user);
-    int deleteUser(String username);
+    int deleteUser(int userid);
     int updateUser(UserBO user);
     List<UserModuleVO> getUserModuleByUserId(int userid);
 }

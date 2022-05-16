@@ -15,7 +15,7 @@ class UserServiceImplTest {
     void getAllUser() {
         List<UserBO> userBOList =userService.GetAllUser();
         System.out.println(userBOList);
-        System.out.println(userService.GetUserByUserId("1"));
+        System.out.println(userService.GetUserByUserId(1));
     }
 
     @Test
