@@ -24,8 +24,9 @@ public class UserUtil {
             throw new RuntimeException("无token，请重新登录");
         }
         int userid=(int) redisUtils.get(token);
-        System.out.println("获取当前登录用户token："+token);
-        System.out.println("获取当前登录用户id："+userid);
-        return userServiceImpl.GetUserByUserId(userid);
+        UserBO userBO=userServiceImpl.GetUserByUserId(userid);
+        System.out.println("当前token："+token);
+        System.out.println("当前用户信息："+userBO.toString());
+        return userBO;
     }
 }

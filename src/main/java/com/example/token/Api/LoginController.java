@@ -65,7 +65,7 @@ public class LoginController{
                 String content="【登录提醒】尊敬的管理员，您好，用户： "+ userBO.getRealName()+"("+ userBO.getUserName()+") 正使用IP地址： 【"+ userBO.getIp()
                         + "】 于 【"+ userBO.getLogintime()+"】 位于 【"+ userBO.getArea()+"】 区域使用 【"
                         + userBO.getOs()+"】 操作系统的 【"+ userBO.getBrower()+"】 浏览器登录您的系统！";
-//                emailServiceImpl.SendToByQQ("1","【登录提醒】",content);
+                emailServiceImpl.SendToByQQ("1","【登录提醒】",content);
                 return token;
             }catch (Exception e){
                 System.out.println(e);

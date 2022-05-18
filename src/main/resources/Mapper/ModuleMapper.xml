@@ -21,5 +21,6 @@
         select um.userid,m.module_name,m.module_url,m.img_url,m.description from user_module um
         left join module m on m.id=um.moduleid
         where um.userid=#{userid,jdbcType=INTEGER}
+        order by m.id
     </select>
 </mapper>
