@@ -1,5 +1,6 @@
 package com.example.token.Api.Setting;
 
+import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.setting.SettingBO;
 import com.example.token.Service.SettingService.SettingServiceImpl;
@@ -21,6 +22,7 @@ public class SettingApi {
     @UserLoginToken
     @GetMapping("/getSettingList")
     @ApiOperation("获取设置列表")
+    @AspectLogAnnptation
     public List<SettingBO> getSetting(@RequestBody SettingBO settingBO){
         return settingServiceImpl.getSetting(settingBO);
     }
@@ -28,6 +30,7 @@ public class SettingApi {
     @UserLoginToken
     @PostMapping("/updateSettingByName")
     @ApiOperation("获取设置列表")
+    @AspectLogAnnptation
     public Boolean updateSettingByName(@RequestBody SettingBO settingBO){
         return settingServiceImpl.updateSettingByName(settingBO);
     }

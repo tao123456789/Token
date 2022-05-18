@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateUser(UserBO user){
-        System.out.println("更新用户登陆信息："+user);
         return userMapper.updateUser(user);
     }
 

@@ -1,6 +1,8 @@
 package com.example.token.Api.Logger;
 
 import com.example.token.Config.Interface.UserLoginToken;
+import com.example.token.Entity.BO.aspectlog.AspectLogBO;
+import com.example.token.Mapper.AspectLogMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -9,14 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/logger")
 @Api(tags = "日志信息")
 public class LoggerApi {
+    @Resource
+    AspectLogMapper aspectLogMapper;
 
     @UserLoginToken
     @GetMapping("/getLog")
@@ -38,5 +44,13 @@ public class LoggerApi {
         }
         System.out.println("获取日志文件成功，日志大小为："+log.size());
         return log.toString();
+    }
+
+    @UserLoginToken
+    @GetMapping("/getAspectLog")
+    @ResponseBody
+    @ApiOperation("获取切面日志信息")
+    public List<AspectLogBO> getAspectLogList(){
+        return aspectLogMapper.getAspectLogList();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.token.Api;
 
+import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.PassToken;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.user.UserBO;
@@ -40,17 +41,17 @@ public class LoginController{
     //登录
     @PostMapping ("/login")
     @ResponseBody
+    @AspectLogAnnptation
     public String login(@RequestBody UserBO userBO) {
-        System.out.println("登录信息为："+ userBO);
         UserBO userBean = new UserBO();
         userBean = userService.GetUserByUserName(userBO.getUserName());
         //验证登录，获取token
         if(userBean.getUserPasswd().equals(userBO.getUserPasswd())){
             userBO.setId(userBean.getId());
             userBO.setRealName(userBean.getRealName());
-            System.out.println("登录请求："+httpServletRequest);
             userBO.setIp(httpUtil.getIpAddr(httpServletRequest));
-            System.out.println("登录信息："+userBO);
+            userBO.setBrower(httpUtil.getLoginInfo().getBrower());
+            userBO.setOs(httpUtil.getLoginInfo().getOs());
             //生成token
             String token = UUID.randomUUID().toString().replaceAll("-", "");
             try{
@@ -62,10 +63,10 @@ public class LoginController{
                 }else{
                     System.out.println("用户登录信息更新失败！");
                 };
-                String content="【登录提醒】尊敬的管理员，您好，用户： "+ userBO.getRealName()+"("+ userBO.getUserName()+") 正使用IP地址： 【"+ userBO.getIp()
+                String content="【登录提醒】尊敬的管理员，您好，用户： "+ userBO.getRealName()+"("+ userBO.getUserName()+") 正使用IP地址： 【"+ httpUtil.getLoginInfo().getIp()
                         + "】 于 【"+ userBO.getLogintime()+"】 位于 【"+ userBO.getArea()+"】 区域使用 【"
-                        + userBO.getOs()+"】 操作系统的 【"+ userBO.getBrower()+"】 浏览器登录您的系统！";
-                emailServiceImpl.SendToByQQ("1","【登录提醒】",content);
+                        + httpUtil.getLoginInfo().getOs()+"】 操作系统的 【"+ httpUtil.getLoginInfo().getBrower()+"】 浏览器登录您的系统！";
+//                emailServiceImpl.SendToByQQ("1","【登录提醒】",content);
                 return token;
             }catch (Exception e){
                 System.out.println(e);

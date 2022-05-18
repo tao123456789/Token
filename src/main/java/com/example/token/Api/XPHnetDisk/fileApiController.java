@@ -1,5 +1,6 @@
 package com.example.token.Api.XPHnetDisk;
 
+import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Utils.file.FileUtil;
 import io.swagger.annotations.ApiOperation;
@@ -31,11 +32,12 @@ public class fileApiController{
     @UserLoginToken
     @GetMapping("/getFileList")
     @ApiOperation("获取网盘文件列表")
+    @AspectLogAnnptation
     public List<String> getFileList(@RequestParam("url") String url) {
         return fileService.fileList(url);
     }
 
-//    @UserLoginToken
+    @UserLoginToken
     @GetMapping("/downloadFile")
     @ApiOperation("下载文件")
     public ResponseEntity<byte[]> downloadFile(@RequestParam("url") String url, HttpServletRequest request) throws IOException {

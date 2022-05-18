@@ -1,5 +1,6 @@
 package com.example.token.Api.User;
 
+import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.user.UserBO;
 import com.example.token.Entity.VO.user.UserModuleVO;
@@ -27,6 +28,7 @@ public class UserController {
 
 
     @GetMapping("/getAllUser")
+    @AspectLogAnnptation
     public List<UserBO> GetAllUser(){
 
         List<UserBO> userBOList = null;
@@ -40,6 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/getUserByUserId/{userid}")
+    @AspectLogAnnptation
     public UserBO GetUserByUserId(@PathVariable int userid){
 //        System.out.println("将要获取的username:"+id);
 //        System.out.println("获取到的username:"+userService.GetUserByName(id));
@@ -47,6 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/getUserByUserName/{username}")
+    @AspectLogAnnptation
     public UserBO GetUserByUesrName(@PathVariable String username){
 //        System.out.println("将要获取的username:"+id);
 //        System.out.println("获取到的username:"+userService.GetUserByName(id));
@@ -54,6 +58,7 @@ public class UserController {
     }
 
     @PostMapping("/updateUserInfo")
+    @AspectLogAnnptation
     public Boolean updateUserInfo(@RequestBody UserBO userBO){
         int i=userService.updateUser(userBO);
         System.out.println("更新？："+i);
@@ -61,6 +66,7 @@ public class UserController {
     }
 
     @GetMapping("/GetModuleByUserId")
+    @AspectLogAnnptation
     public List<UserModuleVO> GetModuleByUserId(){
         int userid=userUtil.getCurrentUserInfo().getId();
         //获取用户模块权限

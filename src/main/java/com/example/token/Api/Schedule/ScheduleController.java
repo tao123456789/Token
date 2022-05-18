@@ -1,5 +1,6 @@
 package com.example.token.Api.Schedule;
 
+import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.schedule.ScheduleBO;
 import com.example.token.Entity.BO.schedule.ScheduleTaskBO;
@@ -32,6 +33,7 @@ public class ScheduleController {
     @UserLoginToken
     @GetMapping("/getScheduleTaskList")
     @ApiOperation("获取每日任务列表")
+    @AspectLogAnnptation
     public List<ScheduleTaskBO> getScheduleTaskList() {
         return scheduleServiceImpl.getScheduleTaskList(userUtil.getCurrentUserInfo().getId(),new DateUtil().getNowFormat2());
     }
@@ -39,12 +41,14 @@ public class ScheduleController {
     @UserLoginToken
     @GetMapping("/getScheduleList")
     @ApiOperation("获取每日任务列表")
+    @AspectLogAnnptation
     public List<ScheduleBO> getScheduleList() {
         return scheduleServiceImpl.getScheduleList(userUtil.getCurrentUserInfo().getId());
     }
 
     @PostMapping("/addSchedule")
     @ApiOperation("添加每日任务")
+    @AspectLogAnnptation
     public Boolean addSchedule(@RequestBody ScheduleBO scheduleBO) {
         scheduleBO.setUserid(userUtil.getCurrentUserInfo().getId());
         scheduleBO.setUpdateTime(new DateUtil().getNowFormat3());
@@ -57,6 +61,7 @@ public class ScheduleController {
 
     @PostMapping("/addScheduleTask")
     @ApiOperation("添加每日任务列表")
+    @AspectLogAnnptation
     public Boolean addScheduleTask(@RequestBody ScheduleTaskBO scheduleTaskBO) {
         log.info(String.valueOf(scheduleTaskBO));
         return scheduleServiceImpl.addScheduleTask(scheduleTaskBO);
@@ -64,6 +69,7 @@ public class ScheduleController {
 
     @GetMapping("/updateScheduleTaskStatus/{taskid}")
     @ApiOperation("更新任务状态")
+    @AspectLogAnnptation
     public Boolean updateScheduleTaskStatus(@PathVariable("taskid") int taskid) throws Exception {
         log.info(String.valueOf(taskid));
         return scheduleServiceImpl.updateScheduleTaskStatus(taskid);
@@ -71,6 +77,7 @@ public class ScheduleController {
 
     @GetMapping("/createScheduleTask")
     @ApiOperation("生成每日任务")
+    @AspectLogAnnptation
     public void createScheduleTask() throws Exception {
         scheduleTask.dailyScheduleTask();
     }

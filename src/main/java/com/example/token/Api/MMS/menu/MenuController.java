@@ -1,6 +1,7 @@
 package com.example.token.Api.MMS.menu;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.menu.action;
 import com.example.token.Service.MMSService.MenuService.MenuService;
@@ -32,6 +33,7 @@ public class MenuController {
     @GetMapping("/getMenu")
     @ResponseBody
     @ApiOperation("获取用户权限")
+    @AspectLogAnnptation
     public String GetUserMenu() {
         int userid=userUtil.getCurrentUserInfo().getId();
         Integer groupid = menuService.GetUserGroup(userid);

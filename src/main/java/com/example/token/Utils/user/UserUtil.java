@@ -26,7 +26,6 @@ public class UserUtil {
         int userid=(int) redisUtils.get(token);
         UserBO userBO=userServiceImpl.GetUserByUserId(userid);
         System.out.println("当前token："+token);
-        System.out.println("当前用户信息："+userBO.toString());
         return userBO;
     }
 }
