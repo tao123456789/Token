@@ -2,6 +2,7 @@ package com.example.token.Utils.LogAspect;
 
 import com.example.token.Entity.BO.aspectlog.AspectLogBO;
 import com.example.token.Mapper.AspectLogMapper;
+import com.example.token.Utils.date.DateUtil;
 import com.example.token.Utils.user.UserUtil;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,7 @@ public class WebLogAspect {
     AspectLogMapper aspectLogMapper;
     @Resource
     UserUtil userUtil;
+    DateUtil dateUtil = new DateUtil();
 
     AspectLogBO aspectLogBO=new AspectLogBO();
     String username;
@@ -70,7 +72,7 @@ public class WebLogAspect {
         //获取请求头中的User-Agent
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         aspectLogBO.setUuid("TASK"+UUID.randomUUID().toString().replaceAll("-", ""));
-        aspectLogBO.setCreate_time(LocalDateTime.now().toString());
+        aspectLogBO.setCreate_time(dateUtil.getNowFormat3().toString());
         aspectLogBO.setRequest_url(request.getRequestURL().toString());
         aspectLogBO.setRequest_method(request.getMethod());
         aspectLogBO.setRequest_ip(request.getRemoteAddr());
@@ -113,7 +115,7 @@ public class WebLogAspect {
     public void doAfterReturning(Object ret) throws Throwable {
         endTime = System.currentTimeMillis();
         aspectLogBO.setStatus("success");
-        aspectLogBO.setFinish_time(LocalDateTime.now().toString());
+        aspectLogBO.setFinish_time(dateUtil.getNowFormat3().toString());
         aspectLogBO.setResponse_data(ret.toString());
         aspectLogBO.setTime(String.valueOf((endTime - startTime)));
         log.info("--------------------------------------------切面日志doAfterReturning打印开始------------------------------------------------------");
@@ -135,11 +137,14 @@ public class WebLogAspect {
      */
     @AfterThrowing(value = "webLogPointcut()", throwing = "throwable")
     public void doAfterThrowing(Throwable throwable) {
-        aspectLogBO.setStatus("失败");
+        aspectLogBO.setStatus("fail");
+        aspectLogBO.setFinish_time(dateUtil.getNowFormat3().toString());
+        aspectLogBO.setResponse_data(throwable.getMessage());
         // 保存异常日志记录
         log.info("--------------------------------------------切面日志doAfterThrowing打印开始------------------------------------------------------");
         log.error("发生异常时间：{}", LocalDateTime.now());
         log.error("抛出异常：{}", throwable.getMessage());
+        aspectLogMapper.insertAspectLog(aspectLogBO);
         log.info("--------------------------------------------切面日志doAfterThrowing打印结束------------------------------------------------------");
     }
 }

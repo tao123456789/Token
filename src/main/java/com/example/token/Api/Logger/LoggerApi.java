@@ -1,15 +1,14 @@
 package com.example.token.Api.Logger;
 
+import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.aspectlog.AspectLogBO;
-import com.example.token.Mapper.AspectLogMapper;
+import com.example.token.Entity.VO.page.PageVo;
+import com.example.token.Service.AspectLogService.AspectLogServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.*;
@@ -22,7 +21,7 @@ import java.util.List;
 @Api(tags = "日志信息")
 public class LoggerApi {
     @Resource
-    AspectLogMapper aspectLogMapper;
+    AspectLogServiceImpl aspectLogServiceImpl;
 
     @UserLoginToken
     @GetMapping("/getLog")
@@ -50,7 +49,16 @@ public class LoggerApi {
     @GetMapping("/getAspectLog")
     @ResponseBody
     @ApiOperation("获取切面日志信息")
-    public List<AspectLogBO> getAspectLogList(){
-        return aspectLogMapper.getAspectLogList();
+    public List<AspectLogBO> getAspectLogList(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size){
+        return aspectLogServiceImpl.getAspectLogList(page,size);
+    }
+
+    @UserLoginToken
+    @PostMapping("/getAspectLogPage")
+    @ResponseBody
+    @ApiOperation("获取切面日志信息")
+    @AspectLogAnnptation
+    public int getAspectLogPage(@RequestBody PageVo pageVo){
+        return aspectLogServiceImpl.getAspectLogPage(pageVo);
     }
 }

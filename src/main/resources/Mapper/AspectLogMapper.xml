@@ -22,8 +22,15 @@
         <result column="time" jdbcType="VARCHAR" property="time"/>
     </resultMap>
 
-    <select id="getAspectLogList" resultMap="BaseResultMap" parameterType="com.example.token.Entity.BO.aspectlog.AspectLogBO">
+    <select id="getAspectLogList" resultMap="BaseResultMap">
         select uuid,status,request_url,request_method,request_ip,request_data,create_name,create_time,finish_time,time from aspectlog
+        order by create_time desc
+        <if test="start!=null and end!=null">
+            limit #{start},#{end}
+        </if>
+    </select>
+    <select id="getAspectLogCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM aspectlog
     </select>
 
     <insert id="insertAspectLog">
