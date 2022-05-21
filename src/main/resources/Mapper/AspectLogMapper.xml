@@ -32,6 +32,9 @@
     <select id="getAspectLogCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM aspectlog
     </select>
+    <select id="getAspectLogInfoByUuid" resultMap="BaseResultMap">
+        SELECT * FROM aspectlog where uuid=#{uuid}
+    </select>
 
     <insert id="insertAspectLog">
         insert into aspectlog(uuid,status,request_url,request_method,request_ip,request_data,response_data,create_name,create_time,finish_time,time) values(#{uuid},#{status},#{request_url},#{request_method},#{request_ip},#{request_data},#{response_data},#{create_name},#{create_time},#{finish_time},#{time})

@@ -124,7 +124,14 @@ public class WebLogAspect {
         // 处理完请求，返回内容
         log.info("请求返回 : {}", ret);
         log.info("插入日志表："+aspectLogBO.toString());
-        aspectLogMapper.insertAspectLog(aspectLogBO);
+        try {
+            aspectLogMapper.insertAspectLog(aspectLogBO);
+        }catch (Exception e){
+            System.out.println("切面日志插入失败："+e);
+            aspectLogBO.setStatus("fail");
+            aspectLogBO.setResponse_data(e.toString());
+            aspectLogMapper.insertAspectLog(aspectLogBO);
+        }
         log.info("--------------------------------------------切面日志doAfterReturning打印结束------------------------------------------------------");
     }
 

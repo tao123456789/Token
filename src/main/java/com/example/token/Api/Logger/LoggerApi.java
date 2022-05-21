@@ -61,4 +61,13 @@ public class LoggerApi {
     public int getAspectLogPage(@RequestBody PageVo pageVo){
         return aspectLogServiceImpl.getAspectLogPage(pageVo);
     }
+
+    @UserLoginToken
+    @GetMapping("/getAspectLogInfoByUuid")
+    @ResponseBody
+    @ApiOperation("获取切面日志详细信息")
+    @AspectLogAnnptation
+    public AspectLogBO getAspectLogInfoByUuid(String uuid){
+        return aspectLogServiceImpl.getAspectLogInfoByUuid(uuid);
+    }
 }

@@ -23,14 +23,10 @@ public class AspectLogServiceImpl {
 
     public int getAspectLogPage(PageVo pageVo){
         int page=aspectLogMapper.getAspectLogCount();
-//        System.out.println(pageVo.toString());
-//        int res=page%(pageVo.getSize());
-//        System.out.println(page%(pageVo.getSize()));
-//        System.out.println(page/(pageVo.getSize()));
-//        if(res==0){
-//            return page/(pageVo.getSize());
-//        }
-//        return (page/pageVo.getSize())+1;
         return page;
+    }
+    public AspectLogBO getAspectLogInfoByUuid(String uuid){
+        AspectLogBO aspectLogBO=aspectLogMapper.getAspectLogInfoByUuid(uuid);
+        return aspectLogBO;
     }
 }

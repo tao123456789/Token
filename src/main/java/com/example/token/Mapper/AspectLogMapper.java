@@ -11,4 +11,5 @@ public interface AspectLogMapper {
     Boolean insertAspectLog(AspectLogBO aspectLogBO);
     List<AspectLogBO> getAspectLogList(@Param("start") int start,@Param("end") int end);
     int getAspectLogCount();
+    AspectLogBO getAspectLogInfoByUuid(String uuid);
 }
