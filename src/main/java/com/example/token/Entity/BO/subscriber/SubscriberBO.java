@@ -12,14 +12,16 @@ public class SubscriberBO {
     private String type;
     private String subscriber;
     private String message;
+    private String status;
 
     @Override
     public String toString() {
         return "SubscriberBO{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", type='" + type + '\'' +
                 ", subscriber='" + subscriber + '\'' +
                 ", message='" + message + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

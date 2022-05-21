@@ -3,6 +3,7 @@ package com.example.token.Api.Logger;
 import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.aspectlog.AspectLogBO;
+import com.example.token.Entity.BO.subscriber.SubscriberBO;
 import com.example.token.Entity.VO.page.PageVo;
 import com.example.token.Service.AspectLogService.AspectLogServiceImpl;
 import io.swagger.annotations.Api;
@@ -69,5 +70,23 @@ public class LoggerApi {
     @AspectLogAnnptation
     public AspectLogBO getAspectLogInfoByUuid(String uuid){
         return aspectLogServiceImpl.getAspectLogInfoByUuid(uuid);
+    }
+
+    @UserLoginToken
+    @GetMapping("/getSubscriberList")
+    @ResponseBody
+    @ApiOperation("获取订阅者信息")
+    @AspectLogAnnptation
+    public List<SubscriberBO> getSubscriberList(){
+        return aspectLogServiceImpl.getSubscriberList();
+    }
+
+    @UserLoginToken
+    @GetMapping("/changeStatus")
+    @ResponseBody
+    @ApiOperation("修改订阅者信息")
+    @AspectLogAnnptation
+    public Boolean changeStatus(int id,int status){
+        return aspectLogServiceImpl.changeStatus(id,status);
     }
 }

@@ -1,8 +1,10 @@
 package com.example.token.Service.AspectLogService;
 
 import com.example.token.Entity.BO.aspectlog.AspectLogBO;
+import com.example.token.Entity.BO.subscriber.SubscriberBO;
 import com.example.token.Entity.VO.page.PageVo;
 import com.example.token.Mapper.AspectLogMapper;
+import com.example.token.Mapper.SubscriberMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,6 +15,8 @@ public class AspectLogServiceImpl {
 
     @Resource
     AspectLogMapper aspectLogMapper;
+    @Resource
+    SubscriberMapper subscriberMapper;
 
     public List<AspectLogBO> getAspectLogList(int page, int size){
         int start=size*(page-1);
@@ -22,11 +26,18 @@ public class AspectLogServiceImpl {
     }
 
     public int getAspectLogPage(PageVo pageVo){
-        int page=aspectLogMapper.getAspectLogCount();
-        return page;
+        return aspectLogMapper.getAspectLogCount();
     }
+
     public AspectLogBO getAspectLogInfoByUuid(String uuid){
-        AspectLogBO aspectLogBO=aspectLogMapper.getAspectLogInfoByUuid(uuid);
-        return aspectLogBO;
+        return aspectLogMapper.getAspectLogInfoByUuid(uuid);
+    }
+
+    public List<SubscriberBO> getSubscriberList(){
+        return subscriberMapper.getSubscriberList();
+    }
+
+    public Boolean changeStatus(int id,int status){
+        return subscriberMapper.changeStatus(id,status);
     }
 }

@@ -7,10 +7,18 @@
         <id column="type" jdbcType="VARCHAR" property="type" />
         <result column="subscriber" jdbcType="VARCHAR" property="subscriber" />
         <result column="message" jdbcType="VARCHAR" property="message" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
     </resultMap>
     <!--    按照type查询订阅者-->
     <select id="getSubscriberByType" resultMap="SubscriberBO">
         select * from subscriber where type = #{type,jdbcType=VARCHAR} and status = 1
     </select>
+
+    <select id="getSubscriberList" resultMap="SubscriberBO">
+        select * from subscriber
+    </select>
+    <update id="changeStatus">
+        update subscriber set status=${status} where id=#{id}
+    </update>
     </mapper>
 

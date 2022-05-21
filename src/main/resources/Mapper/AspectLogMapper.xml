@@ -32,6 +32,7 @@
     <select id="getAspectLogCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM aspectlog
     </select>
+
     <select id="getAspectLogInfoByUuid" resultMap="BaseResultMap">
         SELECT * FROM aspectlog where uuid=#{uuid}
     </select>
