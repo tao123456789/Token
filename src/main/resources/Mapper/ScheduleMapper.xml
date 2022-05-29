@@ -59,4 +59,10 @@
         update dailyscheduletask set Status=1 where id=#{taskid}
     </update>
 
+    <delete id="deleteSchedule" parameterType="java.lang.Integer">
+        delete from dailyschedule where id=#{id}
+    </delete>
+    <delete id="deleteScheduleTask" parameterType="java.lang.Integer">
+        delete from dailyscheduleTask where id=#{id}
+    </delete>
 </mapper>

@@ -16,4 +16,6 @@ public interface ScheduleMapper {
     Boolean addSchedule(ScheduleBO scheduleBo);
     Boolean addScheduleTask(ScheduleTaskBO scheduleTaskBO);
     Boolean updateScheduleTaskStatus(int taskid);
+    Boolean deleteSchedule(int id);
+    Boolean deleteScheduleTask(int id);
 }

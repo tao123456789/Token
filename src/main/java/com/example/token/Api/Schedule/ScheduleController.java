@@ -81,4 +81,18 @@ public class ScheduleController {
     public void createScheduleTask() throws Exception {
         scheduleTask.dailyScheduleTask();
     }
+
+    @GetMapping("/deleteScheduleTask")
+    @ApiOperation("删除任务")
+    @AspectLogAnnptation
+    public void deleteScheduleTask(int id) throws Exception {
+        scheduleServiceImpl.deleteScheduleTask(id);
+    }
+
+    @GetMapping("/deleteSchedule")
+    @ApiOperation("删除每日任务")
+    @AspectLogAnnptation
+    public void deleteSchedule(int id) throws Exception {
+        scheduleServiceImpl.deleteSchedule(id);
+    }
 }

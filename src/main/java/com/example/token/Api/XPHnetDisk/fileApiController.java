@@ -1,19 +1,28 @@
 package com.example.token.Api.XPHnetDisk;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.UserLoginToken;
+import com.example.token.Entity.BO.netdisk.FileInfoBO;
 import com.example.token.Utils.file.FileUtil;
 import com.example.token.Utils.user.UserUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -37,7 +46,24 @@ public class fileApiController {
         }else {
             url = BASEPATH + userid + url;
         }
-        return fileUtil.getfileList(userid,url);
+        FileInfoBO fileInfoBO=new FileInfoBO();
+        fileInfoBO.setF_pathloc(url);
+        fileInfoBO.setF_userid(userid);
+        ArrayList<Object> jsonObjects=new ArrayList<>();
+        List<FileInfoBO> getFileList= fileUtil.getfileList(fileInfoBO);
+        if(ObjectUtils.isEmpty(getFileList)){
+            log.info("用戶"+userid+" 网盘"+url+" 路径下为空....");
+            return jsonObjects;
+        }else{
+            for(FileInfoBO item:getFileList){
+                JSONObject jsonObject=new JSONObject();
+                jsonObject.put("F_id",item.getF_id());
+                jsonObject.put("F_namesvr",item.getF_namesvr());
+                jsonObject.put("F_fdTask",item.getF_fdtask());
+                jsonObjects.add(jsonObject);
+            }
+        }
+        return jsonObjects;
     }
 
     @PostMapping("/uploadFile")
@@ -60,11 +86,8 @@ public class fileApiController {
     @ApiOperation("网盘路径新建")
     @ResponseBody
     @AspectLogAnnptation
-    public String addFilePath(@RequestParam String currentPath,@RequestParam String name){
+    public String addFilePath(@RequestParam String currentPath,@RequestParam String name) throws IOException {
         int userid=userUtil.getCurrentUserInfo().getId();
-        if(currentPath.isEmpty()){
-            return "路径不能为空";
-        }
         if(name.isEmpty()){
             return "文件名不能为空";
         }
@@ -76,37 +99,46 @@ public class fileApiController {
     @GetMapping("/downloadFile")
     @ApiOperation("下载文件")
     @AspectLogAnnptation
-    public HttpServletResponse downloadFile (@RequestParam("url") String url, HttpServletResponse response) throws IOException {
+    public void downloadFile (@RequestParam("url") String url, String fileID, HttpServletRequest request, HttpServletResponse response) throws IOException {
         int userid=userUtil.getCurrentUserInfo().getId();
-        try {
-            url = "/" + userid + url;
-            File file = new File(url);
-            // 取得文件名。
-            String filename = file.getName();
-            if (!file.exists()) {
-                throw new IOException(url + "文件不存在");
-            }
-            // 取得文件的后缀名。
-            String ext = filename.substring(filename.lastIndexOf(".") + 1).toUpperCase();
+        FileInfoBO fileInfoBO=new FileInfoBO();
+        fileInfoBO.setF_pathloc(BASEPATH+userid+url);
+        fileInfoBO.setF_id(fileID);
+        fileInfoBO.setF_userid(userid);
+        List<FileInfoBO> fileInfoBOList=fileUtil.getfileList(fileInfoBO);
+        if(!fileInfoBOList.isEmpty()) {
+            String downPath=BASEPATH+userid+url+"/"+fileInfoBOList.get(0).getF_namesvr();
+            log.info("下载文件："+downPath);
+            try {
+                File file = new File(downPath);
+                // 取得文件名。
+                String filename = file.getName();
+                if (!file.exists()) {
+                    throw new IOException(url + "文件不存在");
+                }
+                // 取得文件的后缀名。
+                String ext = filename.substring(filename.lastIndexOf(".") + 1).toUpperCase();
 
-            // 以流的形式下载文件。
-            InputStream fis = new BufferedInputStream(new FileInputStream(url));
-            byte[] buffer = new byte[fis.available()];
-            fis.read(buffer);
-            fis.close();
-            // 清空response
-            response.reset();
-            // 设置response的Header
-            response.addHeader("Content-Disposition", "attachment;filename=" + new String(filename.getBytes()));
-            response.addHeader("Content-Length", "" + file.length());
-            OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
-            response.setContentType("application/octet-stream");
-            toClient.write(buffer);
-            toClient.flush();
-            toClient.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+                // 获取文件的MIME类型
+                ServletContext servletContext = request.getServletContext();
+                String mimeType = servletContext.getMimeType(fileInfoBOList.get(0).getF_namesvr());
+                // 将文件读入内存
+                FileInputStream fis = new FileInputStream(downPath);
+                // 设置相应头类型
+                response.setHeader("content-type",mimeType);
+                response.setHeader("content-disposition","attachment;filename="+fileInfoBOList.get(0).getF_namesvr());
+                // 将文件写出浏览器
+                ServletOutputStream outputStream = response.getOutputStream();
+                int len;
+                byte[] by = new byte[1024*8];
+                while((len = fis.read(by)) != -1){
+                    outputStream.write(by,0,len);
+                }
+                outputStream.close();
+                fis.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
-        return response;
     }
 }

@@ -20,8 +20,20 @@
         <result column="f_create_time" jdbcType="VARCHAR" property="f_create_time"/>
     </resultMap>
 
-    <select id="getFileList" resultMap="BaseResultMap">
-        select * from fileinfo where f_pathloc=#{url} and f_userid=#{userid}
+    <select id="getFileList" resultMap="BaseResultMap" parameterType="com.example.token.Entity.BO.netdisk.FileInfoBO">
+        select * from fileinfo where 1=1
+        <if test="f_pathloc!=null">
+           and f_pathloc=#{f_pathloc}
+        </if>
+        <if test="f_userid!=null">
+            and f_userid=#{f_userid}
+        </if>
+        <if test="f_namesvr!=null">
+            and f_namesvr=#{f_namesvr}
+        </if>
+        <if test="f_id!=null">
+            and f_id=#{f_id}
+        </if>
     </select>
     <select id="getBackPath" resultMap="BaseResultMap">
         select * from fileinfo where f_pathloc=#{url} and f_userid=#{userid}

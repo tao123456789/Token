@@ -115,7 +115,14 @@ public class WebLogAspect {
         endTime = System.currentTimeMillis();
         aspectLogBO.setStatus("success");
         aspectLogBO.setFinish_time(dateUtil.getNowFormat3().toString());
-        aspectLogBO.setResponse_data(ret.toString());
+        String Response_data="";
+        try{
+            Response_data=ret.toString();
+        }catch (Exception e) {
+
+        }
+        aspectLogBO.setResponse_data("");
+        aspectLogBO.setResponse_data(Response_data);
         aspectLogBO.setTime(String.valueOf((endTime - startTime)));
         log.info("--------------------------------------------切面日志doAfterReturning打印开始------------------------------------------------------");
         log.info("请求结束时间：{}", LocalDateTime.now());

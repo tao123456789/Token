@@ -3,7 +3,6 @@ package com.example.token.Service.Schedule;
 import com.example.token.Entity.BO.schedule.ScheduleBO;
 import com.example.token.Entity.BO.schedule.ScheduleTaskBO;
 
-import javax.mail.MessagingException;
 import java.util.List;
 
 public interface ScheduleService {
@@ -13,4 +12,6 @@ public interface ScheduleService {
     Boolean addSchedule(ScheduleBO scheduleBO);
     Boolean addScheduleTask(ScheduleTaskBO scheduleTaskBO);
     Boolean updateScheduleTaskStatus(int taskid) throws Exception;
+    Boolean deleteSchedule(int id);
+    Boolean deleteScheduleTask(int id);
 }

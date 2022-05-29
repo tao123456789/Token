@@ -1,19 +1,16 @@
 package com.example.token.Utils.file;
 
-import com.alibaba.fastjson.JSONObject;
 import com.example.token.Entity.BO.netdisk.FileInfoBO;
 import com.example.token.Mapper.FileInfoMapper;
 import com.example.token.Utils.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -36,13 +33,12 @@ public class FileUtil {
         fileInfoBO.setF_pidroot("");
         fileInfoBO.setF_userid(userid);
         fileInfoBO.setF_pathloc(fileUrl);
-        if(fileInfoMapper.insertFileInfo(fileInfoBO)) {
-            uploadFileTool(file, fileUrl);
-        }
+        uploadFileTool(file, fileUrl);
+        fileInfoMapper.insertFileInfo(fileInfoBO);
         return "文件上传成功！！！";
     }
 
-    public void addFilePath(String currentPath,String name,int userid){
+    public void addFilePath(String currentPath,String name,int userid) throws IOException {
         log.info("当前路径"+currentPath);
         FileInfoBO fileInfoBO=new FileInfoBO();
         fileInfoBO.setF_id(UUID.randomUUID().toString());
@@ -55,6 +51,17 @@ public class FileUtil {
         fileInfoBO.setF_pidroot("");
         fileInfoBO.setF_userid(userid);
         fileInfoBO.setF_pathloc(currentPath);
+        log.info(currentPath+"/"+name);
+        File uploadFile = new File(currentPath+"/"+name+"/").getCanonicalFile();
+        if (!uploadFile.getParentFile().exists()) {
+            if (!uploadFile.getParentFile().mkdir()) {
+                log.info("创建文件目录失败！！！");
+                throw new IOException("创建文件目录失败！！！");
+            }
+        } else {
+            log.info(currentPath+"/"+name + "文件路径已存在");
+            throw new IOException(currentPath+"/"+name + "文件路径已存在");
+        }
         fileInfoMapper.insertFileInfo(fileInfoBO);
     }
 
@@ -84,14 +91,16 @@ public class FileUtil {
 
         //存储文件
         try {
-            String pathname = fileUrl + "/" + fileName;
+            String pathname = fileUrl+"/"+fileName;
             File uploadFile = new File(pathname).getCanonicalFile();
             if (!uploadFile.getParentFile().exists()) {
                 if (!uploadFile.getParentFile().mkdir()) {
                     log.info("创建文件目录失败！！！");
+                    throw new IOException("创建文件目录失败！！！");
                 }
             } else {
                 log.info(pathname + "文件路径已存在");
+                throw new IOException(pathname + "文件路径已存在");
             }
             //文件写入
             file.transferTo(uploadFile);
@@ -100,25 +109,9 @@ public class FileUtil {
         }
     }
 
-    public ArrayList<Object> getfileList(int userid,String url) {
-        ArrayList<Object> fileList=new ArrayList<>();
-
-        log.info(url+"查找文件中.....");
-        List<FileInfoBO> getFileList=fileInfoMapper.getFileList(userid,url);
-        if(ObjectUtils.isEmpty(getFileList)){
-            log.info("用戶"+userid+" 网盘"+url+" 路径下为空....");
-            return fileList;
-        }else{
-            for(FileInfoBO item:getFileList){
-                JSONObject jsonObject=new JSONObject();
-                jsonObject.put("F_id",item.getF_id());
-                jsonObject.put("F_namesvr",item.getF_namesvr());
-                jsonObject.put("F_fdTask",item.getF_fdtask());
-                fileList.add(jsonObject);
-            }
-        }
-        log.info(fileList.toString());
-        return fileList;
+    public List<FileInfoBO> getfileList(FileInfoBO fileInfoBO) {
+        log.info(fileInfoBO.toString());
+        return fileInfoMapper.getFileList(fileInfoBO);
     }
 
     //截取文件头

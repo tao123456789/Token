@@ -49,4 +49,14 @@ public class ScheduleServiceImpl implements ScheduleService {
         emailServiceImpl.SendToByQQ("1","【每日任务更新】",content);
         return scheduleMapper.updateScheduleTaskStatus(taskid);
     }
+
+    @Override
+    public Boolean deleteSchedule (int id) {
+        return scheduleMapper.deleteSchedule(id);
+    }
+
+    @Override
+    public Boolean deleteScheduleTask (int id) {
+        return scheduleMapper.deleteScheduleTask(id);
+    }
 }
