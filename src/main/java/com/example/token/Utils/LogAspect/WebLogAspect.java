@@ -79,7 +79,6 @@ public class WebLogAspect {
         aspectLogBO.setRequest_data(Arrays.toString(joinPoint.getArgs()));
         try{
             username=userUtil.getCurrentUserInfo().getRealName();
-            log.info("当前用户："+username);
         }catch (Exception e){
             username="admin";
             log.info("获取当前用户失败");
@@ -93,12 +92,12 @@ public class WebLogAspect {
         log.info("请求Url : {}", request.getRequestURL().toString());
         log.info("请求方式 : {}", request.getMethod());
         log.info("请求ip : {}", request.getRemoteAddr());
-        log.info("请求方法 : ", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+//        log.info("请求方法 : ", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         log.info("请求参数 : {}", Arrays.toString(joinPoint.getArgs()));
-        // 系统信息
-        log.info("浏览器：{}", userAgent.getBrowser().toString());
-        log.info("浏览器版本：{}", userAgent.getBrowserVersion());
-        log.info("操作系统: {}", userAgent.getOperatingSystem().toString());
+//        // 系统信息
+//        log.info("浏览器：{}", userAgent.getBrowser().toString());
+//        log.info("浏览器版本：{}", userAgent.getBrowserVersion());
+//        log.info("操作系统: {}", userAgent.getOperatingSystem().toString());
 
         log.info("--------------------------------------------切面日志doBefore打印结束------------------------------------------------------");
     }

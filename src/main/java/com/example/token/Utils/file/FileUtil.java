@@ -1,27 +1,68 @@
 package com.example.token.Utils.file;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.token.Entity.BO.netdisk.FileInfoBO;
+import com.example.token.Mapper.FileInfoMapper;
+import com.example.token.Utils.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 @Slf4j
 @Service
 public class FileUtil {
+    @Resource
+    FileInfoMapper fileInfoMapper;
 
-    public String uploadFile(MultipartFile file,String fileUrl) throws IOException {
+    public String uploadFile(MultipartFile file,String fileUrl,int userid) throws IOException {
+        FileInfoBO fileInfoBO=new FileInfoBO();
+        fileInfoBO.setF_id(UUID.randomUUID().toString());
+        fileInfoBO.setF_create_time(new DateUtil().getNowFormat3());
+        fileInfoBO.setF_fdtask(1);
+        fileInfoBO.setF_lenloc((int) file.getSize());
+        fileInfoBO.setF_md5("1");
+        fileInfoBO.setF_namesvr(file.getOriginalFilename());
+        fileInfoBO.setF_pid("");
+        fileInfoBO.setF_pidroot("");
+        fileInfoBO.setF_userid(userid);
+        fileInfoBO.setF_pathloc(fileUrl);
+        if(fileInfoMapper.insertFileInfo(fileInfoBO)) {
+            uploadFileTool(file, fileUrl);
+        }
+        return "文件上传成功！！！";
+    }
+
+    public void addFilePath(String currentPath,String name,int userid){
+        log.info("当前路径"+currentPath);
+        FileInfoBO fileInfoBO=new FileInfoBO();
+        fileInfoBO.setF_id(UUID.randomUUID().toString());
+        fileInfoBO.setF_create_time(new DateUtil().getNowFormat3());
+        fileInfoBO.setF_fdtask(0);
+        fileInfoBO.setF_lenloc(0);
+        fileInfoBO.setF_md5("1");
+        fileInfoBO.setF_namesvr(name);
+        fileInfoBO.setF_pid("currentPath");
+        fileInfoBO.setF_pidroot("");
+        fileInfoBO.setF_userid(userid);
+        fileInfoBO.setF_pathloc(currentPath);
+        fileInfoMapper.insertFileInfo(fileInfoBO);
+    }
+
+    public void uploadFileTool(MultipartFile file,String fileUrl) throws IOException {
         if(fileUrl.isEmpty()||file.isEmpty()){
             log.info("文件路径或文件不能为空");
             throw new NullPointerException();
         }
-
         InputStream inputStream=file.getInputStream();
         log.info("转换为流文件:"+inputStream);
         byte[] bytes=new byte[3];
@@ -57,23 +98,26 @@ public class FileUtil {
         }catch (IOException e){
             log.error("文件保存失败！！！"+e);
         }
-        return "文件上传成功！！！";
     }
 
-    public List<String> fileList(String url) {
-        log.info("查找文件中......");
-        ArrayList<String> fileList=new ArrayList<String>();
-        File file=new File(url);
-        File[] files=file.listFiles();
-        if(ObjectUtils.isEmpty(files)){
-            log.info("文件夹为空....");
-            return null;
+    public ArrayList<Object> getfileList(int userid,String url) {
+        ArrayList<Object> fileList=new ArrayList<>();
+
+        log.info(url+"查找文件中.....");
+        List<FileInfoBO> getFileList=fileInfoMapper.getFileList(userid,url);
+        if(ObjectUtils.isEmpty(getFileList)){
+            log.info("用戶"+userid+" 网盘"+url+" 路径下为空....");
+            return fileList;
         }else{
-            for(File file1:files){
-                fileList.add(file1.getName());
+            for(FileInfoBO item:getFileList){
+                JSONObject jsonObject=new JSONObject();
+                jsonObject.put("F_id",item.getF_id());
+                jsonObject.put("F_namesvr",item.getF_namesvr());
+                jsonObject.put("F_fdTask",item.getF_fdtask());
+                fileList.add(jsonObject);
             }
         }
-        log.info(url+"目录下的文件列表为："+fileList.toString());
+        log.info(fileList.toString());
         return fileList;
     }
 
