@@ -91,7 +91,11 @@ public class fileApiController {
         if(name.isEmpty()){
             return "文件名不能为空";
         }
-        fileUtil.addFilePath(BASEPATH+userid+currentPath,name,userid);
+        try {
+            fileUtil.addFilePath(BASEPATH + userid + currentPath, name, userid);
+        }catch (Exception e){
+            return "新建失败！！！文件已存在";
+        }
         return "新建成功！";
     }
 

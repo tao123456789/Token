@@ -51,18 +51,25 @@ public class FileUtil {
         fileInfoBO.setF_pidroot("");
         fileInfoBO.setF_userid(userid);
         fileInfoBO.setF_pathloc(currentPath);
-        log.info(currentPath+"/"+name);
-        File uploadFile = new File(currentPath+"/"+name+"/").getCanonicalFile();
-        if (!uploadFile.getParentFile().exists()) {
+        String pathname = currentPath+"/"+name;
+        try {
+            creatFilePath(pathname);
+        }catch (Exception e){}
+        creatFilePath(pathname+"/temp");
+        fileInfoMapper.insertFileInfo(fileInfoBO);
+    }
+    public File creatFilePath(String pathname) throws IOException {
+        File uploadFile = new File(pathname).getCanonicalFile();
+        if (!uploadFile.getParentFile().exists()){
             if (!uploadFile.getParentFile().mkdir()) {
                 log.info("创建文件目录失败！！！");
                 throw new IOException("创建文件目录失败！！！");
             }
         } else {
-            log.info(currentPath+"/"+name + "文件路径已存在");
-            throw new IOException(currentPath+"/"+name + "文件路径已存在");
+            log.info(pathname + "文件路径已存在");
+            throw new IOException(pathname + "文件路径已存在");
         }
-        fileInfoMapper.insertFileInfo(fileInfoBO);
+        return uploadFile;
     }
 
     public void uploadFileTool(MultipartFile file,String fileUrl) throws IOException {
@@ -93,8 +100,8 @@ public class FileUtil {
         try {
             String pathname = fileUrl+"/"+fileName;
             File uploadFile = new File(pathname).getCanonicalFile();
-            if (!uploadFile.getParentFile().exists()) {
-                if (!uploadFile.getParentFile().mkdir()) {
+            if (!uploadFile.exists()) {
+                if (!uploadFile.mkdir()) {
                     log.info("创建文件目录失败！！！");
                     throw new IOException("创建文件目录失败！！！");
                 }
