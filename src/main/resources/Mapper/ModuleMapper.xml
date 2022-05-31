@@ -23,4 +23,7 @@
         where um.userid=#{userid,jdbcType=INTEGER}
         order by m.id
     </select>
+    <insert id="insetUserModule">
+        insert into user_module(userid,moduleid) values(#{userid},#{moduleid})
+    </insert>
 </mapper>

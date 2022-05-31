@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 @Component
 public interface UserMapper {
-    List<UserBO> GetAllUser();
+    List<UserBO> GetAllUser(UserBO userBO);
     UserBO GetUserByUserName(String username);
     UserBO GetUserByUserId(int userid);
     int insertUser(UserBO user);

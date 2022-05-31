@@ -31,8 +31,23 @@
     </select>
 
 <!--    查询所有的用户信息-->
-    <select id="GetAllUser" resultMap="BaseResultMap">
-        select * from user
+    <select id="GetAllUser" resultMap="BaseResultMap" parameterType="com.example.token.Entity.BO.user.UserBO">
+        select * from user where 1=1
+        <if test='userName!=null' >
+            and username=#{userName}
+        </if>
+        <if test="userPasswd!=null">
+            and password=#{userPasswd}
+        </if>
+        <if test="realName!=null">
+            and realname=#{realName}
+        </if>
+        <if test="area!=null">
+            and area=#{area}
+        </if>
+        <if test="inviteAuth!=null">
+            and inviteauth=#{inviteAuth}
+        </if>
     </select>
 
     <!--删除语句-->
@@ -42,7 +57,7 @@
 
     <!--新增语句-->
     <insert id="insertUser" parameterType="com.example.token.Entity.BO.user.UserBO">
-        insert into user(username,userPasswd,realName) values(#{username},#{userpassword},#{realName})
+        insert into user(username,password,realname,ip,area,brower,os,logintime,inviteAuth,beinviteauth) values(#{userName},#{userPasswd},#{realName},#{ip},#{area},#{brower},#{os},#{logintime},#{inviteAuth},#{beinviteauth})
     </insert>
 
     <!--修改语句-->

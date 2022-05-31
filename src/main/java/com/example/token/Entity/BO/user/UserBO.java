@@ -22,9 +22,13 @@ public class UserBO {
 
     private String logintime;
 
+    private String inviteAuth;
+
+    private String beinviteauth;
+
     @Override
-    public String toString() {
-        return "UserDo{" +
+    public String toString () {
+        return "UserBO{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", userPasswd='" + userPasswd + '\'' +
@@ -34,6 +38,9 @@ public class UserBO {
                 ", brower='" + brower + '\'' +
                 ", os='" + os + '\'' +
                 ", logintime='" + logintime + '\'' +
+                ", inviteAuth='" + inviteAuth + '\'' +
+                ", beinviteauth='" + beinviteauth + '\'' +
                 '}';
     }
+
 }

@@ -30,12 +30,9 @@ public class UserController {
     @GetMapping("/getAllUser")
     @AspectLogAnnptation
     public List<UserBO> GetAllUser(){
-
-        List<UserBO> userBOList = null;
-        if (!userService.GetAllUser().isEmpty()) {
-            userBOList = userService.GetAllUser();
-//            System.out.println("获取到的userlist:"+userDoList);
-        }else {
+        UserBO userBO=new UserBO();
+        List<UserBO> userBOList = userService.GetAllUser(userBO);
+        if (userBOList.isEmpty()) {
             System.out.println("查无此人！！！");
         }
         return userBOList;
@@ -74,5 +71,4 @@ public class UserController {
         System.out.println("用户获取模块权限："+userModuleVOList.toString());
         return userModuleVOList;
     }
-
 }

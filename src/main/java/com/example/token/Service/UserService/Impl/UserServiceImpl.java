@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService {
     ModuleMapper moduleMapper;
 
     @Override
-    public List<UserBO> GetAllUser(){
-        return userMapper.GetAllUser();
+    public List<UserBO> GetAllUser(UserBO userBO){
+        return userMapper.GetAllUser(userBO);
     }
 
     @Override

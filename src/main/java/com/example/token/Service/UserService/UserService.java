@@ -6,7 +6,7 @@ import com.example.token.Entity.VO.user.UserModuleVO;
 import java.util.List;
 
 public interface UserService {
-    List<UserBO> GetAllUser();
+    List<UserBO> GetAllUser(UserBO userBO);
     UserBO GetUserByUserId(int userid);
     UserBO GetUserByUserName(String username);
     int insertUser(UserBO user);

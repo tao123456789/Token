@@ -9,4 +9,5 @@ import java.util.List;
 @Mapper
 public interface ModuleMapper {
     List<UserModuleVO> getUserModuleByUserId(@Param("userid") int userid);
+    Boolean insetUserModule(@Param("userid") int userid,@Param("moduleid") int moduleid);
 }

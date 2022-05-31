@@ -12,8 +12,8 @@ class UserServiceImplTest {
     private UserServiceImpl userService;
 
     @Test
-    void getAllUser() {
-        List<UserBO> userBOList =userService.GetAllUser();
+    void getAllUser(UserBO userBO) {
+        List<UserBO> userBOList =userService.GetAllUser(userBO);
         System.out.println(userBOList);
         System.out.println(userService.GetUserByUserId(1));
     }

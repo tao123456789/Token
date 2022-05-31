@@ -4,8 +4,11 @@ import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.PassToken;
 import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.user.UserBO;
+import com.example.token.Mapper.ModuleMapper;
 import com.example.token.Service.EmailService.EmailServiceImpl;
 import com.example.token.Service.UserService.UserService;
+import com.example.token.Utils.basicEnum.ResultCode;
+import com.example.token.Utils.basicresponse.BasicResponse;
 import com.example.token.Utils.http.HttpUtil;
 import com.example.token.Utils.redis.RedisUtils;
 import io.swagger.annotations.Api;
@@ -37,6 +40,8 @@ public class LoginController{
     HttpUtil httpUtil;
     @Resource
     HttpServletRequest httpServletRequest;
+    @Resource
+    ModuleMapper moduleMapper;
 
     //登录
     @PostMapping ("/login")
@@ -75,6 +80,38 @@ public class LoginController{
             System.out.println("登录密码错误！！！");
         }
         return "false";
+    }
+
+    @PostMapping("/register")
+    @ResponseBody
+    @AspectLogAnnptation
+    public BasicResponse register(@RequestBody UserBO userBO) throws Exception {
+        System.out.println(userBO.toString());
+        UserBO userBO1=new UserBO();
+        userBO1.setInviteAuth(userBO.getBeinviteauth());
+        if(userService.GetAllUser(userBO1).isEmpty()){
+            return new BasicResponse(ResultCode.ERROR,"邀请码不存在！！！");
+        }else{
+            userBO1.setInviteAuth(null);
+            userBO1.setUserName(userBO.getUserName());
+            if(!userService.GetAllUser(userBO1).isEmpty()){
+                return new BasicResponse(ResultCode.ERROR,"用户名已存在！！！");
+            }else {
+                String password=UUID.randomUUID().toString().replaceAll("-", "");
+                userBO.setIp(httpUtil.getIpAddr(httpServletRequest));
+                userBO.setBrower(httpUtil.getLoginInfo().getBrower());
+                userBO.setOs(httpUtil.getLoginInfo().getOs());
+                userBO.setRealName("游客");
+                userBO.setUserPasswd(password);
+                userBO.setInviteAuth(UUID.randomUUID().toString().replaceAll("-", ""));
+                System.out.println(userBO);
+                if ((userService.insertUser(userBO) == 1)) {
+                    moduleMapper.insetUserModule(userService.GetUserByUserName(userBO.getUserName()).getId(),1);
+                    return new BasicResponse(ResultCode.SUCCESS,password);
+                }
+            }
+        }
+        return new BasicResponse(ResultCode.ERROR,"注册失败！！！");
     }
 
     @UserLoginToken
