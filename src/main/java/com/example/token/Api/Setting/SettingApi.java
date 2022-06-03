@@ -23,13 +23,13 @@ public class SettingApi {
     @GetMapping("/getSettingList")
     @ApiOperation("获取设置列表")
     @AspectLogAnnptation
-    public List<SettingBO> getSetting(@RequestBody SettingBO settingBO){
+    public List<SettingBO> getSetting(SettingBO settingBO){
         return settingServiceImpl.getSetting(settingBO);
     }
 
     @UserLoginToken
     @PostMapping("/updateSettingByName")
-    @ApiOperation("获取设置列表")
+    @ApiOperation("修改设置列表")
     @AspectLogAnnptation
     public Boolean updateSettingByName(@RequestBody SettingBO settingBO){
         return settingServiceImpl.updateSettingByName(settingBO);

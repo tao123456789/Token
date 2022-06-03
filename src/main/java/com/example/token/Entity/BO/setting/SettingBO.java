@@ -8,14 +8,16 @@ public class SettingBO {
     int type;
     String name;
     String code;
+    String remark;
 
     @Override
-    public String toString() {
+    public String toString () {
         return "SettingBO{" +
                 "id=" + id +
                 ", type=" + type +
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
+                ", remark='" + remark + '\'' +
                 '}';
     }
 }
