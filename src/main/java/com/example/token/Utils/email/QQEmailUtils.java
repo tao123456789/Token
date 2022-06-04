@@ -38,6 +38,8 @@ public class QQEmailUtils {
             Session session = Session.getInstance(properties);
             // 获取邮件对象
             Message message = new MimeMessage(session);
+            //
+            message.setContent(content,"text/html;charset=UTF-8");
             //设置发件人邮箱地址
             message.setFrom(new InternetAddress(QQAccount));
             //设置收件人地址
@@ -46,6 +48,7 @@ public class QQEmailUtils {
             message.setSubject(tittle);
             //设置邮件内容
             message.setText(content);
+
             //得到邮差对象
             Transport transport = session.getTransport();
             //连接自己的邮箱账户

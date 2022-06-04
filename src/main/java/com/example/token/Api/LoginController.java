@@ -2,13 +2,13 @@ package com.example.token.Api;
 
 import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.PassToken;
-import com.example.token.Config.Interface.UserLoginToken;
 import com.example.token.Entity.BO.user.UserBO;
 import com.example.token.Mapper.ModuleMapper;
 import com.example.token.Service.EmailService.EmailServiceImpl;
 import com.example.token.Service.UserService.UserService;
 import com.example.token.Utils.basicEnum.ResultCode;
 import com.example.token.Utils.basicresponse.BasicResponse;
+import com.example.token.Utils.commonUtil.CommonUtil;
 import com.example.token.Utils.http.HttpUtil;
 import com.example.token.Utils.redis.RedisUtils;
 import io.swagger.annotations.Api;
@@ -55,8 +55,8 @@ public class LoginController{
             userBO.setId(userBean.getId());
             userBO.setRealName(userBean.getRealName());
             userBO.setIp(httpUtil.getIpAddr(httpServletRequest));
-            userBO.setBrower(httpUtil.getLoginInfo().getBrower());
-            userBO.setOs(httpUtil.getLoginInfo().getOs());
+            userBO.setBrower(CommonUtil.getLoginInfo().getBrower());
+            userBO.setOs(CommonUtil.getLoginInfo().getOs());
             //生成token
             String token = UUID.randomUUID().toString().replaceAll("-", "");
             try{
@@ -68,10 +68,10 @@ public class LoginController{
                 }else{
                     System.out.println("用户登录信息更新失败！");
                 };
-                String content="【登录提醒】尊敬的管理员，您好，用户： "+ userBO.getRealName()+"("+ userBO.getUserName()+") 正使用IP地址： 【"+ httpUtil.getLoginInfo().getIp()
+                String content="【登录提醒】尊敬的管理员，您好，用户： "+ userBO.getRealName()+"("+ userBO.getUserName()+") 正使用IP地址： 【"+ CommonUtil.getLoginInfo().getIp()
                         + "】 于 【"+ userBO.getLogintime()+"】 位于 【"+ userBO.getArea()+"】 区域使用 【"
-                        + httpUtil.getLoginInfo().getOs()+"】 操作系统的 【"+ httpUtil.getLoginInfo().getBrower()+"】 浏览器登录您的系统！";
-                emailServiceImpl.SendToByQQ("1","【登录提醒】",content);
+                        + CommonUtil.getLoginInfo().getOs()+"】 操作系统的 【"+ CommonUtil.getLoginInfo().getBrower()+"】 浏览器登录您的系统！";
+                emailServiceImpl.SendAll("1","【登录提醒】",content);
                 return token;
             }catch (Exception e){
                 System.out.println(e);
@@ -99,8 +99,8 @@ public class LoginController{
             }else {
                 String password=UUID.randomUUID().toString().replaceAll("-", "");
                 userBO.setIp(httpUtil.getIpAddr(httpServletRequest));
-                userBO.setBrower(httpUtil.getLoginInfo().getBrower());
-                userBO.setOs(httpUtil.getLoginInfo().getOs());
+                userBO.setBrower(CommonUtil.getLoginInfo().getBrower());
+                userBO.setOs(CommonUtil.getLoginInfo().getOs());
                 userBO.setRealName("游客");
                 userBO.setUserPasswd(password);
                 userBO.setInviteAuth(UUID.randomUUID().toString().replaceAll("-", ""));
@@ -114,7 +114,7 @@ public class LoginController{
         return new BasicResponse(ResultCode.ERROR,"注册失败！！！");
     }
 
-    @UserLoginToken
+    @PassToken
     @GetMapping("/getMessage")
     public String getMessage() throws MessagingException {
         return "你已通过验证";

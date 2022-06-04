@@ -72,7 +72,8 @@ public class ScheduleController {
     @AspectLogAnnptation
     public Boolean updateScheduleTaskStatus(@PathVariable("taskid") int taskid) throws Exception {
         log.info(String.valueOf(taskid));
-        return scheduleServiceImpl.updateScheduleTaskStatus(taskid);
+        String usermail= userUtil.getCurrentUserInfo().getQqmail();
+        return scheduleServiceImpl.updateScheduleTaskStatus(taskid,usermail);
     }
 
     @GetMapping("/createScheduleTask")

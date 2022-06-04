@@ -11,7 +11,7 @@ public interface ScheduleService {
     List<ScheduleTaskBO> getScheduleTaskList(int userid, String startTime);
     Boolean addSchedule(ScheduleBO scheduleBO);
     Boolean addScheduleTask(ScheduleTaskBO scheduleTaskBO);
-    Boolean updateScheduleTaskStatus(int taskid) throws Exception;
+    Boolean updateScheduleTaskStatus(int taskid,String usermail) throws Exception;
     Boolean deleteSchedule(int id);
     Boolean deleteScheduleTask(int id);
 }

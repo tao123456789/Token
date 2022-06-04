@@ -14,11 +14,17 @@ public class EmailServiceImpl {
     SubscriberMapper subscriberMapper;
     @Resource
     QQEmailUtils qqEmailUtils;
-    public void SendToByQQ(String type,String tittle,String content) throws Exception {
+    public void SendAll(String type,String tittle,String content) throws Exception {
         List<SubscriberBO> subscriberBOList=subscriberMapper.getSubscriberByType(type);
         for(SubscriberBO subscriberBO:subscriberBOList) {
             System.out.println("发送： "+subscriberBO.getSubscriber()+"  邮件，账号为： "+subscriberBO.getMessage()+" ，内容为： "+content);
             qqEmailUtils.SendToByQQ(tittle, content, subscriberBO.getMessage());
         }
+    }
+
+    public void SendToByQQMail(String type,String tittle,String content,String userQQMail) throws Exception {
+        List<SubscriberBO> subscriberBOList=subscriberMapper.getSubscriberByType(type);
+        System.out.println("发送： "+userQQMail+"  邮件，账号为： "+userQQMail+" ，内容为： "+content);
+        qqEmailUtils.SendToByQQ(tittle, content, userQQMail);
     }
 }

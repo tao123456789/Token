@@ -6,6 +6,7 @@ import com.example.token.Mapper.ScheduleMapper;
 import com.example.token.Service.EmailService.EmailServiceImpl;
 import com.example.token.Service.Schedule.ScheduleService;
 import com.example.token.Utils.date.DateUtil;
+import com.example.token.Utils.user.UserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     private ScheduleMapper scheduleMapper;
     @Resource
     EmailServiceImpl emailServiceImpl;
+    @Resource
+    UserUtil userUtil;
 
     @Override
     public List<ScheduleTaskBO> getScheduleTaskList(int userid, String startTime) {
@@ -43,10 +46,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Boolean updateScheduleTaskStatus(int taskid) throws Exception {
+    public Boolean updateScheduleTaskStatus(int taskid,String usermail) throws Exception {
         ScheduleTaskBO scheduleTaskBO=scheduleMapper.getScheduleTaskListById(taskid);
         String content="恭喜您！：【"+scheduleTaskBO.getExcuteTime()+"】的任务：【"+scheduleTaskBO.getTaskContent()+"】 在【"+ new DateUtil().getNowFormat3() +"】已经完成了！请再接再厉，加油！";
-        emailServiceImpl.SendToByQQ("1","【每日任务更新】",content);
+        emailServiceImpl.SendToByQQMail("1","【每日任务更新】",content,usermail);
         return scheduleMapper.updateScheduleTaskStatus(taskid);
     }
 

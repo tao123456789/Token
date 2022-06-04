@@ -1,9 +1,13 @@
 package com.example.token.Utils.TimePlan;
 
+import com.example.token.Service.EmailService.EmailServiceImpl;
+import com.example.token.Service.NotApiService.NotApiServiceImpl;
 import com.example.token.Service.Schedule.Schedule.ScheduleTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 @Component
 public class DailySchedule {
@@ -57,6 +61,8 @@ public class DailySchedule {
 
     @Autowired
     ScheduleTask scheduleTask;
+    @Resource
+    EmailServiceImpl emailService;
 
     //每天0点执行一次:0 0 0 * * ?
     @Scheduled(cron = "0 0 0 * * ?")
@@ -67,7 +73,15 @@ public class DailySchedule {
 
     //每一个整点执行一次:0 0 * * * ?
     @Scheduled(cron = "0 0 * * * ?")
-    public void Schedule2() {
+    public void Schedule2() throws Exception {
         System.out.println("整点定时任务");
+        NotApiServiceImpl notApiService=new NotApiServiceImpl();
+        emailService.SendAll("1","微博热搜【1小时刷新1次】",notApiService.getWBHotMessage());
+    }
+
+    //每隔5秒执行一次:0/5 0 * * * ?
+    @Scheduled(cron = "0 0 0/2 * * ?")
+    public void Schedule3(){
+        System.out.println("2小时定时任务");
     }
 }

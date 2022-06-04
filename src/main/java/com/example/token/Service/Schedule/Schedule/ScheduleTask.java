@@ -8,6 +8,7 @@ import com.example.token.Utils.date.DateUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +21,7 @@ import java.util.List;
 
     public void dailyScheduleTask() throws Exception {
         List<ScheduleBO> scheduleBOList = scheduleMapper.getAllScheduleList();
+        List<String> taskList=new ArrayList<>();
         for (ScheduleBO scheduleBO : scheduleBOList) {
             //类型转换
             ScheduleTaskBO scheduleTaskBO = new ScheduleTaskBO();
@@ -31,11 +33,11 @@ import java.util.List;
             scheduleTaskBO.setExcuteTime(new DateUtil().getNowFormat2());
             scheduleTaskBO.setUpdateName(scheduleBO.getUpdateName());
             scheduleTaskBO.setUpdateTime(new DateUtil().getNowFormat2());
-            System.out.println(scheduleTaskBO.toString());
+            taskList.add(scheduleBO.getTaskContent());
             if (scheduleMapper.addScheduleTask(scheduleTaskBO)) {
                 System.out.println("添加成功！");
             }
         }
-        emailServiceImpl.SendToByQQ("1","【每日任务更新】",scheduleBOList.toString());
+        emailServiceImpl.SendAll("1","【每日任务更新】",taskList.toString());
     }
 }
