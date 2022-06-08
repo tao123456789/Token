@@ -63,6 +63,8 @@ public class DailySchedule {
     ScheduleTask scheduleTask;
     @Resource
     EmailServiceImpl emailService;
+    @Autowired
+    NotApiServiceImpl notApiService;
 
     //每天0点执行一次:0 0 0 * * ?
     @Scheduled(cron = "0 0 0 * * ?")
@@ -75,13 +77,26 @@ public class DailySchedule {
     @Scheduled(cron = "0 0 * * * ?")
     public void Schedule2() throws Exception {
         System.out.println("整点定时任务");
-        NotApiServiceImpl notApiService=new NotApiServiceImpl();
         emailService.SendAll("1","微博热搜【1小时刷新1次】",notApiService.getWBHotMessage());
     }
 
-    //每隔5秒执行一次:0/5 0 * * * ?
+    //每隔2个小时执行一次:0 0 0/2 * * ?
     @Scheduled(cron = "0 0 0/2 * * ?")
     public void Schedule3(){
         System.out.println("2小时定时任务");
+    }
+
+    //每隔5秒执行一次:0/5 0 * * * ?
+    @Scheduled(cron = "0/10 * * * * ?")
+    public void Schedule4() throws Exception {
+        emailService.SendAll("1","微博热搜【1小时刷新1次】",notApiService.getWallhavenPic());
+        System.out.println("10秒定时任务");
+    }
+
+    //12点执行:0 0 0/12 * * ?
+    @Scheduled(cron = "0 0 0/12 * * ?")
+    public void Schedule5() throws Exception {
+//        emailService.SendAll("1","微博热搜【1小时刷新1次】",notApiService.getWallhavenPic());
+        System.out.println("5秒定时任务");
     }
 }

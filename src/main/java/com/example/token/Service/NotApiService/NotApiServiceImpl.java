@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -28,5 +29,22 @@ public class NotApiServiceImpl {
             WBhotMessage=WBhotMessage+content.get(i)+"<br>";
         }
         return WBhotMessage;
+    }
+
+    public String getWallhavenPic(){
+        String response=httpUtil.getMethod("https://wallhaven.cc/random");
+        List<String> content= Arrays.asList(StringUtils.substringsBetween(response, "<a class=\"preview\" href=\"", "\"  target=\"_blank\"  >"));
+        List<String> content2=new ArrayList<>();
+        for(String item:content){
+            System.out.println("正在获取壁纸链接..."+item);
+            String response2=httpUtil.getMethod(item);
+            content2.add(Arrays.asList(StringUtils.substringsBetween(response2, "<img id=\"wallpaper\" src=\"", "\" alt=\"")).get(0));
+        }
+        System.out.println("共获取到"+content2.size()+"张壁纸");
+        String WallhavenPic="共获取到"+content2.size()+"张壁纸<br>";
+        for(int i=0;i<content2.size();i++){
+            WallhavenPic=WallhavenPic+content2.get(i)+"<br>";
+        }
+        return WallhavenPic;
     }
 }

@@ -112,4 +112,23 @@ public class HttpUtil {
         }
         return null;
     }
+
+    public static String getMethod(String url){
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        HttpGet get = new HttpGet(url);
+        try{
+            //这里可以设置请求参数，token等
+            get.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36");
+            HttpResponse response = httpClient.execute(get);//执行获取响应
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){//根据状态码处理
+                //返回字符串
+                String res = EntityUtils.toString(response.getEntity());
+//                System.out.println(res);
+                return res;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

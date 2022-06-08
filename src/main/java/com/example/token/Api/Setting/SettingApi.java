@@ -20,7 +20,7 @@ public class SettingApi {
     SettingServiceImpl settingServiceImpl;
 
     @UserLoginToken
-    @GetMapping("/getSettingList")
+    @PostMapping("/getSettingList")
     @ApiOperation("获取设置列表")
     @AspectLogAnnptation
     public List<SettingBO> getSetting(SettingBO settingBO){
