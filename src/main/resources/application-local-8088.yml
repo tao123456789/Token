@@ -35,15 +35,9 @@ spring:
         max-wait: 1000
         #default.db: 0
         #password: 123456
-  #rabbit配置
-  rabbitmq:
-    port: 5672
-    host: localhost
-    username: guest
-    password: guest
 
 server:
-  port: 8087
+  port: 8088
 
 #mybatis配置
 mybatis:

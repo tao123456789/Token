@@ -38,12 +38,10 @@ public class UserController {
         return userBOList;
     }
 
-    @GetMapping("/getUserByUserId/{userid}")
+    @GetMapping("/getUserByUserId")
     @AspectLogAnnptation
-    public UserBO GetUserByUserId(@PathVariable int userid){
-//        System.out.println("将要获取的username:"+id);
-//        System.out.println("获取到的username:"+userService.GetUserByName(id));
-        return userService.GetUserByUserId(userid);
+    public UserBO GetUserByUserId(){
+        return userService.GetUserByUserId(userUtil.getCurrentUserInfo().getId());
     }
 
     @GetMapping("/getUserByUserName/{username}")
@@ -57,7 +55,8 @@ public class UserController {
     @PostMapping("/updateUserInfo")
     @AspectLogAnnptation
     public Boolean updateUserInfo(@RequestBody UserBO userBO){
-        int i=userService.updateUser(userBO);
+        userBO.setId(userUtil.getCurrentUserInfo().getId());
+        int i=userService.updateUserInfo(userBO);
         System.out.println("更新？："+i);
         return (i==1);
     }

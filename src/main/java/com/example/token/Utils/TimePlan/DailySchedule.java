@@ -3,6 +3,7 @@ package com.example.token.Utils.TimePlan;
 import com.example.token.Service.EmailService.EmailServiceImpl;
 import com.example.token.Service.NotApiService.NotApiServiceImpl;
 import com.example.token.Service.Schedule.Schedule.ScheduleTask;
+import com.example.token.Utils.rabbitMQ.MQUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -65,6 +66,8 @@ public class DailySchedule {
     EmailServiceImpl emailService;
     @Autowired
     NotApiServiceImpl notApiService;
+    @Resource
+    MQUtil mqUtil;
 
     //每天0点执行一次:0 0 0 * * ?
     @Scheduled(cron = "0 0 0 * * ?")
@@ -77,7 +80,7 @@ public class DailySchedule {
     @Scheduled(cron = "0 0 * * * ?")
     public void Schedule2() throws Exception {
         System.out.println("整点定时任务");
-        emailService.SendAll("1","微博热搜【1小时刷新1次】",notApiService.getWBHotMessage());
+        emailService.SendMessageToSubscriberBYMQ("1","微博热搜【1小时刷新1次】",notApiService.getWBHotMessage());
     }
 
     //每隔2个小时执行一次:0 0 0/2 * * ?
@@ -86,17 +89,17 @@ public class DailySchedule {
         System.out.println("2小时定时任务");
     }
 
-    //每隔5秒执行一次:0/5 0 * * * ?
-    @Scheduled(cron = "0/10 * * * * ?")
-    public void Schedule4() throws Exception {
-        emailService.SendAll("1","微博热搜【1小时刷新1次】",notApiService.getWallhavenPic());
-        System.out.println("10秒定时任务");
+    //每隔5分钟秒执行一次:0 * * * * ?
+    @Scheduled(cron = "0 0/5 * * * ?")
+    public void Schedule4() {
+        System.out.println("5分钟定时任务");
+//        emailService.SendMessageToSubscriberBYMQ("1","微博热搜【5分钟刷新1次】",notApiService.getWBHotMessage());
     }
 
-    //12点执行:0 0 0/12 * * ?
-    @Scheduled(cron = "0 0 0/12 * * ?")
+    //12点05分执行:0 0 0/12 * * ?
+    @Scheduled(cron = "0 0/5 0/12 * * ?")
     public void Schedule5() throws Exception {
-//        emailService.SendAll("1","微博热搜【1小时刷新1次】",notApiService.getWallhavenPic());
-        System.out.println("5秒定时任务");
+        emailService.SendMessageToSubscriberBYMQ("1","每日壁纸推荐",notApiService.getWallhavenPic());
+        System.out.println("12点05分定时任务");
     }
 }

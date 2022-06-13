@@ -15,6 +15,7 @@ public interface UserMapper {
     int insertUser(UserBO user);
     int deleteUser(int userid);
     int updateUser(UserBO user);
+    int updateUserInfo(UserBO user);
 
 //    token服务
     Integer checkToken(String token);

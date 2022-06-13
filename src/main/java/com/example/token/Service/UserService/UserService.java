@@ -12,5 +12,6 @@ public interface UserService {
     int insertUser(UserBO user);
     int deleteUser(int userid);
     int updateUser(UserBO user);
+    int updateUserInfo(UserBO user);
     List<UserModuleVO> getUserModuleByUserId(int userid);
 }

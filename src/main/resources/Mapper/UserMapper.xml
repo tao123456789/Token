@@ -27,7 +27,7 @@
 
     <!--    根据id查询某一个用户的信息-->
     <select id="GetUserByUserId" resultMap="BaseResultMap">
-        select * from user where id = #{userid}
+        select id,username,tel,qqmail,realname,ip,area,brower,os,logintime,inviteAuth,beinviteauth from user where id = #{userid}
     </select>
 
 <!--    查询所有的用户信息-->
@@ -79,6 +79,26 @@
         <if test="logintime!=null">
             logintime=#{logintime}
         </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--用户编辑语句-->
+    <update id="updateUserInfo" parameterType="com.example.token.Entity.BO.user.UserBO">
+        update user
+        <set>
+            <if test='realName!=null' >
+                realName=#{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPasswd!=null">
+                password=#{userPasswd,jdbcType=VARCHAR},
+            </if>
+            <if test="qqmail!=null">
+                qqmail=#{qqmail,jdbcType=VARCHAR},
+            </if>
+            <if test="tel!=null">
+                tel=#{tel,jdbcType=VARCHAR},
+            </if>
         </set>
         where id=#{id}
     </update>

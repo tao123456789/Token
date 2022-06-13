@@ -40,11 +40,13 @@ public class NotApiServiceImpl {
             String response2=httpUtil.getMethod(item);
             content2.add(Arrays.asList(StringUtils.substringsBetween(response2, "<img id=\"wallpaper\" src=\"", "\" alt=\"")).get(0));
         }
-        System.out.println("共获取到"+content2.size()+"张壁纸");
+//        System.out.println("共获取到"+content2.size()+"张壁纸");
         String WallhavenPic="共获取到"+content2.size()+"张壁纸<br>";
-        for(int i=0;i<content2.size();i++){
-            WallhavenPic=WallhavenPic+content2.get(i)+"<br>";
+        for(String item:content2){
+            System.out.println(WallhavenPic);
+            WallhavenPic=WallhavenPic+"<br>"+item+"<br><img src=\""+item+"\">";
         }
+//        System.out.println(WallhavenPic);
         return WallhavenPic;
     }
 }

@@ -38,6 +38,6 @@ import java.util.List;
                 System.out.println("添加成功！");
             }
         }
-        emailServiceImpl.SendAll("1","【每日任务更新】",taskList.toString());
+        emailServiceImpl.SendMessageToSubscriberBYMQ("1","【每日任务更新】",taskList.toString());
     }
 }

@@ -14,6 +14,8 @@ public class UserBO {
 
     private String qqmail;
 
+    private String tel;
+
     private String ip;
 
     private String area;
@@ -36,6 +38,7 @@ public class UserBO {
                 ", userPasswd='" + userPasswd + '\'' +
                 ", realName='" + realName + '\'' +
                 ", qqmail='" + qqmail + '\'' +
+                ", tel='" + tel + '\'' +
                 ", ip='" + ip + '\'' +
                 ", area='" + area + '\'' +
                 ", brower='" + brower + '\'' +
