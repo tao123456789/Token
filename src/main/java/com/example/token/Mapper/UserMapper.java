@@ -2,12 +2,10 @@ package com.example.token.Mapper;
 
 import com.example.token.Entity.BO.user.UserBO;
 import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Mapper
-@Component
 public interface UserMapper {
     List<UserBO> GetAllUser(UserBO userBO);
     UserBO GetUserByUserName(String username);

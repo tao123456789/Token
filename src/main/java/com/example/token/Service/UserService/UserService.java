@@ -1,5 +1,6 @@
 package com.example.token.Service.UserService;
 
+import com.example.token.Entity.BO.module.ModuleBO;
 import com.example.token.Entity.BO.user.UserBO;
 import com.example.token.Entity.VO.user.UserModuleVO;
 
@@ -14,4 +15,7 @@ public interface UserService {
     int updateUser(UserBO user);
     int updateUserInfo(UserBO user);
     List<UserModuleVO> getUserModuleByUserId(int userid);
+    Boolean removeModuleByID(int id);
+    List<ModuleBO> getAllModuleList();
+    Boolean insertUserModule(int id,int moduleid);
 }

@@ -16,9 +16,9 @@ public class BasicResponse implements Serializable {
     //响应数据
     private Object data;
 
-    public BasicResponse (ResultCode resultCode, String s) {
+    public BasicResponse (ResultCode resultCode, String msg) {
         this.code=resultCode.getCode();
-        this.data=s;
+        this.msg=msg;
     }
 
     public Integer getCode() {

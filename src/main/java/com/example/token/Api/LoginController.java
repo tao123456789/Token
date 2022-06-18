@@ -106,7 +106,7 @@ public class LoginController{
                 userBO.setInviteAuth(UUID.randomUUID().toString().replaceAll("-", ""));
                 System.out.println(userBO);
                 if ((userService.insertUser(userBO) == 1)) {
-                    moduleMapper.insetUserModule(userService.GetUserByUserName(userBO.getUserName()).getId(),1);
+                    moduleMapper.insertUserModule(userService.GetUserByUserName(userBO.getUserName()).getId(),1);
                     return new BasicResponse(ResultCode.SUCCESS,password);
                 }
             }

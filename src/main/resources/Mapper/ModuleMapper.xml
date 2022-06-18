@@ -10,6 +10,8 @@
     <resultMap id="BaseResultMap" type="com.example.token.Entity.VO.user.UserModuleVO">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="userid" jdbcType="INTEGER" property="userid" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="realname" jdbcType="VARCHAR" property="realname" />
         <result column="moduleid" jdbcType="INTEGER" property="moduleid" />
         <result column="module_name" jdbcType="VARCHAR" property="module_name" />
         <result column="module_url" jdbcType="VARCHAR" property="module_url" />
@@ -17,13 +19,31 @@
         <result column="description" jdbcType="VARCHAR" property="description" />
     </resultMap>
 
+    <resultMap id="BaseResultMap2" type="com.example.token.Entity.BO.module.ModuleBO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="module_name" jdbcType="VARCHAR" property="module_name" />
+        <result column="module_url" jdbcType="VARCHAR" property="module_url" />
+        <result column="img_url" jdbcType="VARCHAR" property="img_url" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+    </resultMap>
+
     <select id="getUserModuleByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select um.userid,m.module_name,m.module_url,m.img_url,m.description from user_module um
+        select um.id,um.userid,u.username,u.realname,um.moduleid,m.module_name,m.module_url,m.img_url,m.description from user_module um
         left join module m on m.id=um.moduleid
+        left join user u on u.id=um.userid
         where um.userid=#{userid,jdbcType=INTEGER}
-        order by m.id
+        order by m.id,m.module_name
     </select>
-    <insert id="insetUserModule">
+
+    <select id="getAllModuleList" resultMap="BaseResultMap2">
+        select * from module order by id
+    </select>
+
+    <insert id="insertUserModule">
         insert into user_module(userid,moduleid) values(#{userid},#{moduleid})
     </insert>
+
+    <delete id="removeModuleByID" parameterType="java.lang.Integer">
+        delete from user_module where id=#{id}
+    </delete>
 </mapper>

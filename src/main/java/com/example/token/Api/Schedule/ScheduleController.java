@@ -46,6 +46,7 @@ public class ScheduleController {
         return scheduleServiceImpl.getScheduleList(userUtil.getCurrentUserInfo().getId());
     }
 
+    @UserLoginToken
     @PostMapping("/addSchedule")
     @ApiOperation("添加每日任务")
     @AspectLogAnnptation
@@ -59,6 +60,7 @@ public class ScheduleController {
         return scheduleServiceImpl.addSchedule(scheduleBO);
     }
 
+    @UserLoginToken
     @PostMapping("/addScheduleTask")
     @ApiOperation("添加每日任务列表")
     @AspectLogAnnptation
@@ -67,6 +69,7 @@ public class ScheduleController {
         return scheduleServiceImpl.addScheduleTask(scheduleTaskBO);
     }
 
+    @UserLoginToken
     @GetMapping("/updateScheduleTaskStatus/{taskid}")
     @ApiOperation("更新任务状态")
     @AspectLogAnnptation
@@ -76,6 +79,7 @@ public class ScheduleController {
         return scheduleServiceImpl.updateScheduleTaskStatus(taskid,usermail);
     }
 
+    @UserLoginToken
     @GetMapping("/createScheduleTask")
     @ApiOperation("生成每日任务")
     @AspectLogAnnptation
@@ -83,6 +87,7 @@ public class ScheduleController {
         scheduleTask.dailyScheduleTask();
     }
 
+    @UserLoginToken
     @GetMapping("/deleteScheduleTask")
     @ApiOperation("删除任务")
     @AspectLogAnnptation
@@ -90,6 +95,7 @@ public class ScheduleController {
         scheduleServiceImpl.deleteScheduleTask(id);
     }
 
+    @UserLoginToken
     @GetMapping("/deleteSchedule")
     @ApiOperation("删除每日任务")
     @AspectLogAnnptation

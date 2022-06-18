@@ -1,5 +1,6 @@
 package com.example.token.Service.UserService.Impl;
 
+import com.example.token.Entity.BO.module.ModuleBO;
 import com.example.token.Entity.BO.user.UserBO;
 import com.example.token.Entity.VO.user.UserModuleVO;
 import com.example.token.Mapper.ModuleMapper;
@@ -56,6 +57,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserModuleVO> getUserModuleByUserId(int userid) {
         return moduleMapper.getUserModuleByUserId(userid);
+    }
+
+    @Override
+    public Boolean removeModuleByID (int id) {
+        return moduleMapper.removeModuleByID(id);
+    }
+
+    @Override
+    public List<ModuleBO> getAllModuleList () {
+        return moduleMapper.getAllModuleList();
+    }
+
+    @Override
+    public Boolean insertUserModule (int id, int moduleid) {
+        return moduleMapper.insertUserModule(id,moduleid);
     }
 
 }

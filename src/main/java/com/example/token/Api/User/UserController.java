@@ -2,11 +2,13 @@ package com.example.token.Api.User;
 
 import com.example.token.Annotation.AspectLogAnnptation;
 import com.example.token.Config.Interface.UserLoginToken;
+import com.example.token.Entity.BO.module.ModuleBO;
 import com.example.token.Entity.BO.user.UserBO;
 import com.example.token.Entity.VO.user.UserModuleVO;
 import com.example.token.Service.UserService.UserService;
 import com.example.token.Utils.user.UserUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -55,19 +57,54 @@ public class UserController {
     @PostMapping("/updateUserInfo")
     @AspectLogAnnptation
     public Boolean updateUserInfo(@RequestBody UserBO userBO){
+        if(userBO.getUserPasswd()==""){
+            userBO.setUserPasswd(null);
+        }
         userBO.setId(userUtil.getCurrentUserInfo().getId());
         int i=userService.updateUserInfo(userBO);
         System.out.println("更新？："+i);
         return (i==1);
     }
 
-    @GetMapping("/GetModuleByUserId")
+    @GetMapping("/GetModule")
     @AspectLogAnnptation
-    public List<UserModuleVO> GetModuleByUserId(){
+    public List<UserModuleVO> GetModule(){
         int userid=userUtil.getCurrentUserInfo().getId();
         //获取用户模块权限
         List<UserModuleVO> userModuleVOList=userService.getUserModuleByUserId(userid);
         System.out.println("用户获取模块权限："+userModuleVOList.toString());
         return userModuleVOList;
+    }
+
+    @GetMapping("/GetAllModuleList")
+    @AspectLogAnnptation
+    @ApiOperation("获取模块列表")
+    public List<ModuleBO> GetAllModuleList(){
+        List<ModuleBO> AllModuleList=userService.getAllModuleList();
+        System.out.println("模块列表："+AllModuleList.toString());
+        return AllModuleList;
+    }
+
+    @GetMapping("/GetModuleByUserId")
+    @AspectLogAnnptation
+    public List<UserModuleVO> GetModuleByUserId(int userid){
+        //获取用户模块权限
+        List<UserModuleVO> userModuleVOList=userService.getUserModuleByUserId(userid);
+        System.out.println("用户获取模块权限："+userModuleVOList.toString());
+        return userModuleVOList;
+    }
+
+    @GetMapping("/removeModule")
+    @AspectLogAnnptation
+    @ApiOperation("移除首页模块权限")
+    public Boolean removeModule(int id){
+        return userService.removeModuleByID(id);
+    }
+
+    @GetMapping("/insertUserModule")
+    @AspectLogAnnptation
+    @ApiOperation("添加模块权限")
+    public Boolean insetUserModule(int userid,int moduleid){
+        return userService.insertUserModule(userid,moduleid);
     }
 }

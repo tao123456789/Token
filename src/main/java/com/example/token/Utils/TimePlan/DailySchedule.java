@@ -86,20 +86,32 @@ public class DailySchedule {
     //每隔2个小时执行一次:0 0 0/2 * * ?
     @Scheduled(cron = "0 0 0/2 * * ?")
     public void Schedule3(){
-        System.out.println("2小时定时任务");
+//        System.out.println("2小时定时任务");
     }
 
     //每隔5分钟秒执行一次:0 * * * * ?
     @Scheduled(cron = "0 0/5 * * * ?")
     public void Schedule4() {
-        System.out.println("5分钟定时任务");
-//        emailService.SendMessageToSubscriberBYMQ("1","微博热搜【5分钟刷新1次】",notApiService.getWBHotMessage());
+//        System.out.println("5分钟定时任务");
     }
 
     //12点05分执行:0 0 0/12 * * ?
     @Scheduled(cron = "0 0/5 0/12 * * ?")
     public void Schedule5() throws Exception {
+//        System.out.println("12点05分定时任务");
+    }
+
+    //整点05分执行:0 0 0/12 * * ?
+    @Scheduled(cron = "0 0/5 * * * ?")
+    public void Schedule6() throws Exception {
         emailService.SendMessageToSubscriberBYMQ("1","每日壁纸推荐",notApiService.getWallhavenPic());
         System.out.println("12点05分定时任务");
+    }
+
+    //5秒执行:0 0 0/5 * * ?
+    @Scheduled(cron = "0/5 * * * * ?")
+    public void Schedule7() throws Exception {
+//        emailService.SendMessageToSubscriberBYMQ("1","每日壁纸推荐",notApiService.getWallhavenPic());
+//        System.out.println("5秒定时任务");
     }
 }
