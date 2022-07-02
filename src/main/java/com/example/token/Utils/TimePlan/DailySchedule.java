@@ -80,6 +80,7 @@ public class DailySchedule {
     @Scheduled(cron = "0 0 * * * ?")
     public void Schedule2() throws Exception {
         System.out.println("整点定时任务");
+        emailService.SendMessageToSubscriberBYMQ("1","每日壁纸推荐",notApiService.getWallhavenPic());
         emailService.SendMessageToSubscriberBYMQ("1","微博热搜【1小时刷新1次】",notApiService.getWBHotMessage());
     }
 
@@ -104,7 +105,6 @@ public class DailySchedule {
     //整点05分执行:0 0 0/12 * * ?
     @Scheduled(cron = "0 0/5 * * * ?")
     public void Schedule6() throws Exception {
-        emailService.SendMessageToSubscriberBYMQ("1","每日壁纸推荐",notApiService.getWallhavenPic());
         System.out.println("12点05分定时任务");
     }
 

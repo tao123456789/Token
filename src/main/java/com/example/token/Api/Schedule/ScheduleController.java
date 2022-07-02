@@ -76,6 +76,7 @@ public class ScheduleController {
     public Boolean updateScheduleTaskStatus(@PathVariable("taskid") int taskid) throws Exception {
         log.info(String.valueOf(taskid));
         String usermail= userUtil.getCurrentUserInfo().getQqmail();
+        System.out.println(usermail);
         return scheduleServiceImpl.updateScheduleTaskStatus(taskid,usermail);
     }
 

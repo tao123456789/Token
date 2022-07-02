@@ -6,7 +6,6 @@ import com.example.token.Entity.VO.user.UserModuleVO;
 import com.example.token.Mapper.ModuleMapper;
 import com.example.token.Mapper.UserMapper;
 import com.example.token.Service.UserService.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,8 +13,8 @@ import java.util.List;
 
 @Service("userService1")
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserMapper userMapper;
+    @Resource
+    UserMapper userMapper;
     @Resource
     ModuleMapper moduleMapper;
 
@@ -73,5 +72,7 @@ public class UserServiceImpl implements UserService {
     public Boolean insertUserModule (int id, int moduleid) {
         return moduleMapper.insertUserModule(id,moduleid);
     }
+
+
 
 }

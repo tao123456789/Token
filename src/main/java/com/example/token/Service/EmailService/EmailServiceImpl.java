@@ -22,10 +22,10 @@ public class EmailServiceImpl {
         List<SubscriberBO> subscriberBOList=subscriberMapper.getSubscriberByType(type);
         for(SubscriberBO subscriberBO:subscriberBOList) {
             JSONObject jsonObject=new JSONObject();
-            jsonObject.put("ToEmail",subscriberBO.getMessage());
+            jsonObject.put("ToEmail",subscriberBO.getRemark());
             jsonObject.put("Tittle",tittle);
             jsonObject.put("Content",content);
-            System.out.println("发送： "+subscriberBO.getSubscriber()+"  邮件，账号为： "+subscriberBO.getMessage()+" ，内容为： "+content);
+            System.out.println("发送： "+subscriberBO.getName()+"  邮件，账号为： "+subscriberBO.getRemark()+" ，内容为： "+content);
             mqUtil.send("EmailMessage",jsonObject.toJSONString());
             //邮件直接发送
             //qqEmailUtils.SendToByQQ(tittle, content, subscriberBO.getMessage());
@@ -35,7 +35,7 @@ public class EmailServiceImpl {
     //推送单个邮箱
     public void SendWBMessageToOneBYMQ(String tittle,String content,String ToEMail) throws Exception {
         JSONObject jsonObject=new JSONObject();
-        jsonObject.put("Subscriber",ToEMail);
+        jsonObject.put("ToEmail",ToEMail);
         jsonObject.put("Content",content);
         jsonObject.put("Tittle",tittle);
         System.out.println("发送： "+ToEMail+"  邮件，账号为： "+ ToEMail +" ，内容为： "+content);
